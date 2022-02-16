@@ -14,12 +14,12 @@ const Base = (props): JSX.Element => {
   };
 
   return (
-    <div className={styles.grid}>
-      <header className={styles.header}>
+    <div className={styles.base}>
+      <header>
         <Head />
       </header>
       <main>{props.children}</main>
-      <footer className={styles.footer}>
+      <footer>
         <Foot />
       </footer>
       <div className="w-screen h-screen" style={{ display: toggleDisplay }}>

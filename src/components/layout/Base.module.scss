@@ -1,28 +1,28 @@
-.grid {
+.base {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
-}
 
-.header {
-  grid-column-start: 1;
-  grid-column-end: 10;
-  background-color: #aaa;
-}
+  header {
+    grid-column-start: 1;
+    grid-column-end: 10;
+    background-color: #aaa;
+  }
 
-.main {
-  grid-column-start: 1;
-  grid-column-end: 10;
-  background-color: #aaa;
-}
+  main {
+    grid-column-start: 1;
+    grid-column-end: 10;
+    background-color: #000;
+  }
 
-.sidebar {
-  grid-column-start: 1;
-  grid-column-end: 10;
-  background-color: #aaa;
-}
+  aside {
+    grid-column-start: 1;
+    grid-column-end: 10;
+    background-color: #aaa;
+  }
 
-.footer {
-  grid-column-start: 1;
-  grid-column-end: 10;
-  background-color: #aaa;
+  footer {
+    grid-column-start: 1;
+    grid-column-end: 10;
+    background-color: #aaa;
+  }
 }
