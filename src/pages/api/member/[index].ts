@@ -4,42 +4,45 @@ import bcrypt from 'bcrypt';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
-    case 'GET':
-      if (req.query.index === 'show') {
-        res.status(200).json({ message: 'GET_SHOW' });
-        break;
-      }
-      res.status(200).json({ message: 'GET_INDEX' });
-      break;
+    // case 'GET':
+    //   if (req.query.index === 'show') {
+    //     res.status(200).json({ message: 'GET_SHOW' });
+    //     break;
+    //   }
+    //   res.status(200).json({ message: 'GET_INDEX' });
+    //   break;
 
     case 'POST':
-      console.log(req.body.name);
-      console.log(req.body.password);
       const saltRounds = 10;
-      let result;
       bcrypt.hash(req.body.password, saltRounds, async function (err, hash) {
-        console.log(hash);
-        result = await prisma.member.create({
-          data: {
-            name: req.body.name,
-            email: req.body.email,
-            password: hash,
-          },
-        });
+        if (err) res.redirect(303, '/member/new?result=error');
+
+        try {
+          const member = await prisma.member.create({
+            data: {
+              name: req.body.name,
+              email: req.body.email,
+              password: hash,
+            },
+          });
+          res.status(200).json(member);
+        } catch (e) {
+          console.log('Prismaエラーコード：' + e.code);
+          res.redirect(303, '/member/new?result=error');
+        }
       });
-      res.status(200).json(result);
       break;
 
-    case 'PATCH':
-      res.status(200).json({ message: 'PATCH' });
-      break;
+    // case 'PATCH':
+    //   res.status(200).json({ message: 'PATCH' });
+    //   break;
 
-    case 'DELETE':
-      res.status(200).json({ message: 'DELETE' });
-      break;
+    // case 'DELETE':
+    //   res.status(200).json({ message: 'DELETE' });
+    //   break;
 
     default:
-      res.status(405).end();
+      res.status(404).end();
       break;
   }
 }
