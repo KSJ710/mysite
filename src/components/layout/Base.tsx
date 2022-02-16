@@ -18,7 +18,7 @@ const Base = (props): JSX.Element => {
       <header className={styles.header}>
         <Head />
       </header>
-      {props.children}
+      <main>{props.children}</main>
       <footer className={styles.footer}>
         <Foot />
       </footer>
