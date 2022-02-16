@@ -11,10 +11,7 @@ import 'src/styles/global.scss';
 // https://fontawesome.com/v5.15/how-to-use/on-the-web/using-with/react
 library.add(fab, fas);
 
-export default function MyApp({
-  Component,
-  pageProps: { session, ...pageProps },
-}: AppProps): JSX.Element {
+export default function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps): JSX.Element {
   if (Component?.props?.layout === 'main') {
     return (
       <SessionProvider session={session}>
