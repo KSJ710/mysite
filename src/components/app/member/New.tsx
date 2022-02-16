@@ -5,7 +5,7 @@ const New = (): JSX.Element => {
   const { result } = router.query;
   return (
     <>
-      <form action="/api/member/create" method="post" className="block bg-cyan-300">
+      <form action="/api/member/create" method="post">
         <label htmlFor="name">
           Name:
           <input type="text" name="name" className="border-2" />
