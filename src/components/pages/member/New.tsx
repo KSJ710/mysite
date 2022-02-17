@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter, NextRouter } from 'next/router';
+import axios from 'axios';
 
 interface WithRouterProps {
   router: NextRouter;
@@ -31,11 +32,19 @@ class New extends React.Component<WithRouterProps> {
   changePassword(e) {
     this.setState({ password: e.target.value });
   }
+  async createMember({ name, email, password }) {
+    try {
+      const response = await axios.post('/api/member/create', { name: name, email: email, password: password });
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   render() {
     return (
       <>
-        <form action="/api/member/create" method="post">
+        <form>
           <label htmlFor="name">
             Name:
             <input type="text" value={this.state.name} name="name" className="border-2" onChange={this.changeName} />
@@ -54,7 +63,14 @@ class New extends React.Component<WithRouterProps> {
               onChange={this.changePassword}
             />
           </label>
-          <input type="submit" value="Submit" className="px-4 mt-2 bg-cyan-300 rounded-full " />
+          <input
+            type="submit"
+            value="Submit"
+            className="px-4 mt-2 bg-cyan-300 rounded-full "
+            onClick={() =>
+              this.createMember({ name: this.state.name, email: this.state.email, password: this.state.password })
+            }
+          />
         </form>
         {this.props.router.query.result === 'error' ? <div>エラーです。</div> : null}
       </>
