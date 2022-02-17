@@ -1,38 +1,30 @@
-import React from 'react';
-import { withRouter, NextRouter } from 'next/router';
+import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import axios from 'axios';
 
-interface WithRouterProps {
-  router: NextRouter;
-}
-
-type State = {
-  name: string;
-  email: string;
-  password: string;
+type Inputs = {
+  example: string;
+  exampleRequired: string;
 };
 
-class New extends React.Component<WithRouterProps> {
-  state: State;
+export default function New(): JSX.Element {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  constructor(props) {
-    super(props);
-    this.state = { name: '', email: '', password: '' };
-    this.changeName = this.changeName.bind(this);
-    this.changeEmail = this.changeEmail.bind(this);
-    this.changePassword = this.changePassword.bind(this);
-  }
+  const router = useRouter();
 
-  changeName(e) {
-    this.setState({ name: e.target.value });
+  function changeName(e) {
+    setName(e.target.value);
   }
-  changeEmail(e) {
-    this.setState({ email: e.target.value });
+  function changeEmail(e) {
+    setEmail(e.target.value);
   }
-  changePassword(e) {
-    this.setState({ password: e.target.value });
+  function changePassword(e) {
+    setPassword(e.target.value);
   }
-  async createMember({ name, email, password }) {
+  async function createMember({ name, email, password }) {
     try {
       const response = await axios.post('/api/member/create', { name: name, email: email, password: password });
       console.log(response);
@@ -41,41 +33,29 @@ class New extends React.Component<WithRouterProps> {
     }
   }
 
-  render() {
-    return (
-      <>
-        <form>
-          <label htmlFor="name">
-            Name:
-            <input type="text" value={this.state.name} name="name" className="border-2" onChange={this.changeName} />
-          </label>
-          <label htmlFor="email">
-            email:
-            <input type="text" value={this.state.email} className="border-2" onChange={this.changeEmail} />
-          </label>
-          <label htmlFor="password">
-            Password:
-            <input
-              type="password"
-              value={this.state.password}
-              name="password"
-              className="border-2"
-              onChange={this.changePassword}
-            />
-          </label>
-          <input
-            type="submit"
-            value="Submit"
-            className="px-4 mt-2 bg-cyan-300 rounded-full "
-            onClick={() =>
-              this.createMember({ name: this.state.name, email: this.state.email, password: this.state.password })
-            }
-          />
-        </form>
-        {this.props.router.query.result === 'error' ? <div>エラーです。</div> : null}
-      </>
-    );
-  }
+  return (
+    <>
+      <form>
+        <label htmlFor="name">
+          Name:
+          <input type="text" value={name} name="name" className="border-2" onChange={changeName} />
+        </label>
+        <label htmlFor="email">
+          email:
+          <input type="text" value={email} className="border-2" onChange={changeEmail} />
+        </label>
+        <label htmlFor="password">
+          Password:
+          <input type="password" value={password} name="password" className="border-2" onChange={changePassword} />
+        </label>
+        <input
+          type="submit"
+          value="Submit"
+          className="px-4 mt-2 bg-cyan-300 rounded-full "
+          onClick={() => createMember({ name: name, email: email, password: password })}
+        />
+      </form>
+      {router.query.result === 'error' ? <div>エラーです。</div> : null}
+    </>
+  );
 }
-
-export default withRouter(New);
