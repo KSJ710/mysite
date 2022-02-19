@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 // atom
-import { currentLayoutPart, editToolsDisplayState } from 'src/states/atoms/tamplate_atoms';
+import { currentLayoutPart, editToolsDisplayState } from 'src/atoms/tamplate_atoms';
 // component
 import ChangeBackgroundColor from 'src/components/templates/edit_tools/ChangeBackgroundColor';
 import ChangeFontFamily from 'src/components/templates/edit_tools/ChangeFontFamily';

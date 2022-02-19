@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { tplHeadNumberState } from 'src/states/atoms/tamplate_atoms';
+import { tplHeadNumberState } from 'src/atoms/tamplate_atoms';
 import * as HeadBulk from 'src/components/templates/layout_parts/headers/index';
 import styles from './Head.module.scss';
 

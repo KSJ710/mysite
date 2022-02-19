@@ -2,7 +2,7 @@
 import { useSetRecoilState } from 'recoil';
 import useSWR from 'swr';
 // atom
-import { tplFootNumberState } from 'src/states/atoms/tamplate_atoms';
+import { tplFootNumberState } from 'src/atoms/tamplate_atoms';
 // helper
 import { fetcher } from 'src/helper/common';
 // css
