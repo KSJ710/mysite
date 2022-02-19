@@ -28,6 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           res.status(200).json(member);
         } catch (e) {
           console.log('Prismaエラーコード：' + e.code);
+          console.error(e);
           res.redirect(302, '/member/new?result=error');
         }
       });
