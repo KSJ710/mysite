@@ -1,32 +1,31 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import axios from 'axios';
 
 type Inputs = {
-  example: string;
-  exampleRequired: string;
+  name: string;
+  emailRequired: string;
+  passwordRequired: string;
 };
 
 export default function New(): JSX.Element {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>();
+  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
-  const router = useRouter();
+  console.log(watch('name'));
 
-  function changeName(e) {
-    setName(e.target.value);
-  }
-  function changeEmail(e) {
-    setEmail(e.target.value);
-  }
-  function changePassword(e) {
-    setPassword(e.target.value);
-  }
   async function createMember({ name, email, password }) {
     try {
-      const response = await axios.post('/api/member/create', { name: name, email: email, password: password });
+      const response = await axios.post('/api/member/create', {
+        name: name,
+        email: email,
+        password: password,
+      });
       console.log(response);
     } catch (error) {
       console.error(error);
@@ -35,27 +34,29 @@ export default function New(): JSX.Element {
 
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="name">
           Name:
-          <input type="text" value={name} name="name" className="border-2" onChange={changeName} />
+          <input type="text" className="border-2" {...register('name')} />
         </label>
         <label htmlFor="email">
           email:
-          <input type="text" value={email} className="border-2" onChange={changeEmail} />
+          <input
+            type="text"
+            defaultValue="xxx@xxx"
+            className="border-2"
+            {...register('emailRequired', { required: true })}
+          />
         </label>
+        {errors.emailRequired && <span>必須項目です</span>}
         <label htmlFor="password">
           Password:
-          <input type="password" value={password} name="password" className="border-2" onChange={changePassword} />
+          <input className="border-2" {...(register('passwordRequired'), { required: true })} />
         </label>
-        <input
-          type="submit"
-          value="Submit"
-          className="px-4 mt-2 bg-cyan-300 rounded-full "
-          onClick={() => createMember({ name: name, email: email, password: password })}
-        />
+        {errors.passwordRequired && <span>必須項目です</span>}
+        <input type="submit" className="px-4 mt-2 bg-cyan-300 rounded-full " />
+        {errors.passwordRequired && <span>必須項目です</span>}
       </form>
-      {router.query.result === 'error' ? <div>エラーです。</div> : null}
     </>
   );
 }
