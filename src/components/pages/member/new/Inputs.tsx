@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import axios from 'axios';
 
@@ -8,7 +8,7 @@ type Inputs = {
   passwordRequired: string;
 };
 
-export default function New(): JSX.Element {
+export default function Inputs(): JSX.Element {
   const {
     register,
     handleSubmit,
@@ -16,8 +16,6 @@ export default function New(): JSX.Element {
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
-
-  console.log(watch('name'));
 
   async function createMember({ name, email, password }) {
     try {
