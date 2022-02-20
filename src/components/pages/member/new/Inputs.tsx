@@ -1,6 +1,11 @@
 import React from 'react';
+import { useRecoilState } from 'recoil';
 import { SubmitHandler, useForm } from 'react-hook-form';
+// atom
+import { newMemberFormState } from 'src/atoms/member/atoms';
 import axios from 'axios';
+import next from 'next';
+import { useRouter } from 'next/router';
 
 type Inputs = {
   name: string;
@@ -15,7 +20,14 @@ export default function Inputs(): JSX.Element {
     watch,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const router = useRouter();
+
+  const [NewMemberForm, setNewMemberForm] = useRecoilState(newMemberFormState);
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    setNewMemberForm(data);
+    router.push('/member/new?step=confirm');
+  };
 
   async function createMember({ name, email, password }) {
     try {
@@ -35,13 +47,12 @@ export default function Inputs(): JSX.Element {
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="name">
           Name:
-          <input type="text" className="border-2" {...register('name')} />
+          <input defaultValue={NewMemberForm.name} className="border-2" {...register('name')} />
         </label>
         <label htmlFor="email">
           email:
           <input
-            type="text"
-            defaultValue="xxx@xxx"
+            defaultValue={NewMemberForm.emailRequired}
             className="border-2"
             {...register('emailRequired', { required: true })}
           />
@@ -49,10 +60,14 @@ export default function Inputs(): JSX.Element {
         {errors.emailRequired && <span>必須項目です</span>}
         <label htmlFor="password">
           Password:
-          <input className="border-2" {...(register('passwordRequired'), { required: true })} />
+          <input
+            className="border-2"
+            defaultValue={NewMemberForm.passwordRequired}
+            {...register('passwordRequired', { required: true })}
+          />
         </label>
         {errors.passwordRequired && <span>必須項目です</span>}
-        <input type="submit" className="px-4 mt-2 bg-cyan-300 rounded-full " />
+        <input type="submit" value={'確認'} className="px-4 mt-2 bg-cyan-300 rounded-full" />
         {errors.passwordRequired && <span>必須項目です</span>}
       </form>
     </>
