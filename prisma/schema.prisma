@@ -67,17 +67,22 @@ model HeadPart {
 
 
 model Member {
-  id           Int         @id @default(autoincrement())
-  name         String
-  email        String      @unique
-  password     String
-  image        String?
-  prefectureId Int?
-  prefecture   Prefecture? @relation(fields: [prefectureId], references: [id])
-  cityId       Int?
-  city         City?       @relation(fields: [cityId], references: [id])
-  createdAt    DateTime    @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt    DateTime    @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+  id                Int         @id @default(autoincrement())
+  name              String
+  email             String      @unique
+  password          String
+  rememberToken     String?     @map("remember_token")
+  rememberExpiresAt DateTime?   @map("remember_expires_at") @db.Timestamptz
+  confirmToken      String?     @map("confirm_token")
+  confirmExpiresAt  DateTime?   @map("confirm_expires_at") @db.Timestamptz
+  confirmStatus     String      @map("confirm_status") @db.Char(2)
+  image             String?
+  prefectureId      Int?
+  prefecture        Prefecture? @relation(fields: [prefectureId], references: [id])
+  cityId            Int?
+  city              City?       @relation(fields: [cityId], references: [id])
+  createdAt         DateTime    @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt         DateTime    @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
 
   @@map("members")
 }
