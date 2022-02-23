@@ -1,6 +1,14 @@
 import { atom } from 'recoil';
 
-export const newMemberFormState = atom({
-  key: 'newMemberFormState',
-  default: { name: '', emailRequired: '', passwordRequired: '' },
+export const newMemberFormNameState = atom<string>({
+  key: 'newMemberFormNameState',
+  default: '',
+});
+export const newMemberFormEmailState = atom<string>({
+  key: 'newMemberFormEmailState',
+  default: '',
+});
+export const newMemberFormPasswordState = atom<string>({
+  key: 'newMemberFormPasswordState',
+  default: '',
 });

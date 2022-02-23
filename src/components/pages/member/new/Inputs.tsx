@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { SubmitHandler, useForm } from 'react-hook-form';
 // atom
-import { newMemberFormState } from 'src/atoms/member/atoms';
+import {
+  newMemberFormNameState,
+  newMemberFormEmailState,
+  newMemberFormPasswordState,
+} from 'src/atoms/member/atoms';
+// その他ライブラリ
 import axios from 'axios';
-import next from 'next';
-import { useRouter } from 'next/router';
 
 type Inputs = {
   name: string;
@@ -14,46 +17,43 @@ type Inputs = {
 };
 
 export default function Inputs(): JSX.Element {
+  const [formName, setFormName] = useRecoilState(newMemberFormNameState);
+  const [formEmail, setFormEmail] = useRecoilState(newMemberFormEmailState);
+  const [formPassword, setformPassword] = useRecoilState(
+    newMemberFormPasswordState
+  );
+  const [flashSendEmail, setFlashSendEmail] = useState(false);
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<Inputs>();
-  const router = useRouter();
 
-  const [NewMemberForm, setNewMemberForm] = useRecoilState(newMemberFormState);
-
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    setNewMemberForm(data);
-    router.push('/member/new?step=confirm');
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const { name, emailRequired, passwordRequired } = data;
+    createMember(name, emailRequired, passwordRequired).then(() => {
+      setFlashSendEmail(true);
+    });
   };
-
-  async function createMember({ name, email, password }) {
-    try {
-      const response = await axios.post('/api/member/create', {
-        name: name,
-        email: email,
-        password: password,
-      });
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
   return (
     <>
+      {flashSendEmail ? <div>メールが送られました</div> : null}
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="name">
           Name:
-          <input defaultValue={NewMemberForm.name} className="border-2" {...register('name')} />
+          <input
+            defaultValue={formName}
+            onInput={(e) => setFormName(e.currentTarget.value)}
+            {...register('name')}
+          />
         </label>
         <label htmlFor="email">
           email:
           <input
-            defaultValue={NewMemberForm.emailRequired}
-            className="border-2"
+            defaultValue={formEmail}
+            onInput={(e) => setFormEmail(e.currentTarget.value)}
             {...register('emailRequired', { required: true })}
           />
         </label>
@@ -61,15 +61,32 @@ export default function Inputs(): JSX.Element {
         <label htmlFor="password">
           Password:
           <input
-            className="border-2"
-            defaultValue={NewMemberForm.passwordRequired}
+            defaultValue={formPassword}
+            onInput={(e) => setformPassword(e.currentTarget.value)}
             {...register('passwordRequired', { required: true })}
           />
         </label>
         {errors.passwordRequired && <span>必須項目です</span>}
-        <input type="submit" value={'確認'} className="px-4 mt-2 bg-cyan-300 rounded-full" />
+        <input
+          type="submit"
+          value={'メールアドレス確認'}
+          className="px-4 mt-2 bg-cyan-300 rounded-full"
+        />
         {errors.passwordRequired && <span>必須項目です</span>}
       </form>
     </>
   );
+}
+
+async function createMember(name, email, password) {
+  try {
+    const res = await axios.post('/api/member/create', {
+      name: name,
+      email: email,
+      password: password,
+    });
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
 }

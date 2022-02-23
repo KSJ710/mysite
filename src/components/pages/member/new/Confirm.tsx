@@ -1,21 +1,13 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { SubmitHandler, useForm } from 'react-hook-form';
 // atom
-import { newMemberFormState } from 'src/atoms/member/atoms';
 import axios from 'axios';
-
-type Inputs = {
-  name: string;
-  emailRequired: string;
-  passwordRequired: string;
-};
+import { useRouter } from 'next/router';
 
 export default function Confirm(): JSX.Element {
-  const newMemberForm = useRecoilValue(newMemberFormState);
-  console.log(newMemberForm);
+  const router = useRouter();
 
-  async function createMember({ name, email, password }) {
+  async function createMember(name, email, password) {
     try {
       const response = await axios.post('/api/member/create', {
         name: name,
@@ -23,6 +15,7 @@ export default function Confirm(): JSX.Element {
         password: password,
       });
       console.log(response);
+      router.push('/mypage', undefined, { shallow: true });
     } catch (error) {
       console.error(error);
     }
@@ -30,9 +23,16 @@ export default function Confirm(): JSX.Element {
 
   return (
     <div className="bg-cyan-100">
-      <div>{newMemberForm.name}</div>
-      <div>{newMemberForm.emailRequired}</div>
-      <div>{newMemberForm.passwordRequired}</div>
+      <h1></h1>
+      <div className="h-8 bg-red-300">{name}</div>
+      <div>{emailRequired}</div>
+      <div>{passwordRequired}</div>
+      <button
+        type="submit"
+        onClick={() => createMember(name, emailRequired, passwordRequired)}
+      >
+        送信
+      </button>
     </div>
   );
 }
