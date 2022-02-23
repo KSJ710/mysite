@@ -7,7 +7,7 @@ model Member {
   rememberExpiresAt DateTime?   @map("remember_expires_at") @db.Timestamptz
   confirmToken      String?     @map("confirm_token")
   confirmExpiresAt  DateTime?   @map("confirm_expires_at") @db.Timestamptz
-  confirmStatus     String      @map("confirm_status") @db.Char(2)
+  confirmStatus     String      @map("confirm_status") @db.Char(1) // 0:未確認 1:確認済
   image             String?
   prefectureId      Int?
   prefecture        Prefecture? @relation(fields: [prefectureId], references: [id])
