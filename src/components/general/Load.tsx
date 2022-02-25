@@ -1,5 +1,5 @@
 import styles from './Load.module.scss';
-export default function Sam(): JSX.Element {
+export default function Load(): JSX.Element {
   return (
     <div className={styles.loader}>
       <span></span>

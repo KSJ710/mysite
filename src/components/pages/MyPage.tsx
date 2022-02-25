@@ -10,18 +10,16 @@ export default function MyPage(): JSX.Element {
     fetcher
   );
 
-  if (!member) {
-    return <Load />;
-  } else {
-    return (
-      <div className="bg-cyan-100">
-        <h1>ユーザー情報</h1>
-        <div className="h-8 bg-red-300"></div>
-        <div>{member?.name}</div>
-        <div>{member?.email}</div>
-      </div>
-    );
-  }
+  if (!member) return <Load />;
+
+  return (
+    <div className="bg-cyan-100">
+      <h1>ユーザー情報</h1>
+      <div className="h-8 bg-red-300"></div>
+      <div>{member?.name}</div>
+      <div>{member?.email}</div>
+    </div>
+  );
 }
 
 // useSWRが受け取る関数でapiルートURLが渡される
