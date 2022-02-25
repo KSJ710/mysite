@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import Home from 'src/components/pages/Home';
 import MemberNew from 'src/components/pages/member/new/Index';
+import MyPage from 'src/components/pages/MyPage';
 import Component404 from 'src/components/Component404';
 
 export default function App(): JSX.Element {
@@ -10,6 +11,8 @@ export default function App(): JSX.Element {
     return <Home />;
   } else if (app?.[0] === 'member' && app?.[1] === 'new') {
     return <MemberNew />;
+  } else if (app?.[0] === 'mypage') {
+    return <MyPage />;
   } else {
     return <Component404 />;
   }

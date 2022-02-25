@@ -51,7 +51,7 @@ export default NextAuth({
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        username: { label: 'Username', type: 'text', placeholder: '' },
+        email: { label: 'Email', type: 'text', placeholder: '' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials, req) {
@@ -65,7 +65,7 @@ export default NextAuth({
         // If no error and we have user data, return it
         const member = await checkUser(req.body.email, req.body.password);
         if (member) {
-          return { name: member.name };
+          return { name: member.name, email: member.email };
         }
 
         // Return null if user data could not be retrieved
@@ -82,7 +82,11 @@ export default NextAuth({
         },
       },
       from: process.env.EMAIL_FROM,
-      async sendVerificationRequest({ identifier: email, url, provider: { server, from } }) {
+      async sendVerificationRequest({
+        identifier: email,
+        url,
+        provider: { server, from },
+      }) {
         const { host } = new URL(url);
         const transport = nodemailer.createTransport(server);
         await transport.sendMail({

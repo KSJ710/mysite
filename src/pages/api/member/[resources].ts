@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from 'lib/prisma';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
+import { getCsrfToken } from 'next-auth/react';
 import { html, text } from 'src/mails/signup';
 
 export default async function handler(
@@ -9,16 +10,22 @@ export default async function handler(
   res: NextApiResponse
 ) {
   switch (req.method) {
-    // case 'GET':
-    //   if (req.query.index === 'show') {
-    //     res.status(200).json({ message: 'GET_SHOW' });
-    //     break;
-    //   }
-    //   res.status(200).json({ message: 'GET_INDEX' });
-    //   break;
+    case 'GET':
+      if (req.query.resources === 'show') {
+        let member = await prisma.member.findUnique({
+          where: { email: req.query.email },
+        });
+        res.status(200).json(member);
+        break;
+      }
+      prisma.$disconnect();
+      res.status(200).json({ message: 'GET_INDEX' });
+      break;
 
     case 'POST':
       const saltRounds = 10;
+      let confirmExpiresAt = new Date();
+      confirmExpiresAt.setMinutes(confirmExpiresAt.getMinutes() + 20);
       bcrypt.hash(req.body.password, saltRounds, async function (err, hash) {
         if (err) res.redirect(302, '/member/new?result=error');
 
@@ -28,20 +35,28 @@ export default async function handler(
               name: req.body.name,
               email: req.body.email,
               password: hash,
+              confirmToken: await getCsrfToken({ req }),
+              confirmExpiresAt: confirmExpiresAt,
               confirmStatus: '0',
             },
           });
-          console.log(member);
-          sendConfirmMail(
+          await sendConfirmMail(
             member.email,
-            html({ url: 'http://localhost:3000/' }),
-            text({ url: 'http://localhost:3000/' })
+            html({
+              url: `${process.env.LOCAL_URL}/api/member/confirm?name=${member.name}&token=${member.confirmToken}`,
+            }),
+            text({
+              url: `${process.env.LOCAL_URL}/api/member/confirm?name=${member.name}&token=${member.confirmToken}`,
+            })
           );
+
           res.status(200).json(member);
         } catch (e) {
           console.log('Prismaエラーコード：' + e.code);
           console.error(e);
           res.redirect(302, '/member/new?result=error');
+        } finally {
+          prisma.$disconnect;
         }
       });
       break;
