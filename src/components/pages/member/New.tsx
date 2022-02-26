@@ -44,6 +44,7 @@ export default function Inputs(): JSX.Element {
         <label htmlFor="name">
           Name:
           <input
+            id="name"
             defaultValue={formName}
             onInput={(e) => setFormName(e.currentTarget.value)}
             {...register('name')}
@@ -51,28 +52,29 @@ export default function Inputs(): JSX.Element {
         </label>
         <label htmlFor="email">
           email:
+          {errors.emailRequired && <span>必須項目です</span>}
           <input
+            id="email"
             defaultValue={formEmail}
             onInput={(e) => setFormEmail(e.currentTarget.value)}
             {...register('emailRequired', { required: true })}
           />
         </label>
-        {errors.emailRequired && <span>必須項目です</span>}
         <label htmlFor="password">
           Password:
+          {errors.passwordRequired && <span>必須項目です</span>}
           <input
+            id="password"
             defaultValue={formPassword}
             onInput={(e) => setformPassword(e.currentTarget.value)}
             {...register('passwordRequired', { required: true })}
           />
         </label>
-        {errors.passwordRequired && <span>必須項目です</span>}
         <input
           type="submit"
           value={'メールアドレス確認'}
           className="px-4 mt-2 bg-cyan-300 rounded-full"
         />
-        {errors.passwordRequired && <span>必須項目です</span>}
       </form>
     </>
   );
