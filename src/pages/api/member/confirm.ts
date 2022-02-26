@@ -22,8 +22,6 @@ export default async function handler(
         data: { confirmStatus: '1' },
       });
 
-      console.log('------------------------------');
-      console.log(member);
       if (member) res.redirect(302, '/login?confirm=success');
       res.redirect(302, '/home?confirm=fail');
       break;
