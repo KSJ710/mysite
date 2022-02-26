@@ -16,7 +16,7 @@ type Inputs = {
   passwordRequired: string;
 };
 
-export default function Inputs(): JSX.Element {
+export default function New(): JSX.Element {
   const [formName, setFormName] = useRecoilState(newMemberFormNameState);
   const [formEmail, setFormEmail] = useRecoilState(newMemberFormEmailState);
   const [formPassword, setformPassword] = useRecoilState(
