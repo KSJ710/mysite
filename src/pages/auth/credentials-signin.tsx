@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { getCsrfToken, useSession, signOut } from 'next-auth/react';
+import { getCsrfToken } from 'next-auth/react';
 
 export default function SignIn({ csrfToken }) {
   const { error } = useRouter().query;
