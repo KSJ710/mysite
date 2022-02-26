@@ -2,7 +2,7 @@
 import { useSession } from 'next-auth/react';
 import { signOut } from 'next-auth/react';
 // component
-import List from 'src/components/general/List';
+import List from 'src/components/common/List';
 // css
 import styles from './Menu.module.scss';
 

@@ -5,7 +5,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import Base from 'src/components/layout/Base';
-import Load from 'src/components/general/Load';
+import Load from 'src/components/common/Load';
 import 'src/styles/global.scss';
 
 // fasのFontAwesomeIconコンポネントを全体で使用できる下記参照
