@@ -1,4 +1,4 @@
-export function html({ url }) {
+export function html({ url, name, token }) {
   const backgroundColor = '#f9f9f9';
   const textColor = '#444444';
   const mainBackgroundColor = '#ffffff';
@@ -32,7 +32,7 @@ export function html({ url }) {
               bgcolor="${buttonBackgroundColor}"
             >
               <a
-                href="${url}"
+                href="${url}?name=${name}&token=${token}"
                 target="_blank"
                 style="font-size: 18px; font-family: Helvetica, Arial, sans-serif; color: ${buttonTextColor}; text-decoration: none; border-radius: 5px; padding: 10px 20px; border: 1px solid ${buttonBorderColor}; display: inline-block; font-weight: bold;"
                 >本登録する</a
