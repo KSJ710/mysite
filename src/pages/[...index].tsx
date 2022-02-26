@@ -5,14 +5,12 @@ import MyPage from 'src/components/pages/MyPage';
 import Component404 from 'src/components/Component404';
 
 export default function App(): JSX.Element {
-  const { app } = useRouter().query;
+  const { index } = useRouter().query;
 
-  if (app?.[0] === 'home') {
+  if (index?.[0] === 'home') {
     return <Home />;
-  } else if (app?.[0] === 'member' && app?.[1] === 'new') {
+  } else if (index?.[0] === 'member' && index?.[1] === 'new') {
     return <MemberNew />;
-  } else if (app?.[0] === 'mypage') {
-    return <MyPage />;
   } else {
     return <Component404 />;
   }
