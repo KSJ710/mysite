@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import Home from 'src/components/pages/Home';
-import MemberNew from 'src/components/pages/member/new/Index';
+import MemberNew from 'src/components/pages/member/New';
 import MyPage from 'src/components/pages/MyPage';
 import Component404 from 'src/components/Component404';
 
