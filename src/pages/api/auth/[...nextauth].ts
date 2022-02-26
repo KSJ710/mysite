@@ -94,7 +94,7 @@ export default NextAuth({
           from,
           subject: `ログインのご案内`,
           text: text({ url, host }),
-          html: html({ url, host, email }),
+          html: html({ url, host }),
         });
       },
     }),
