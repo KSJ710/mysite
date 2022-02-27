@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import Home from 'src/components/pages/Home';
 import MemberNew from 'src/components/pages/member/New';
-import Component404 from 'src/components/Component404';
+import Component404 from 'src/components/pages/Component404';
 
 export default function App(): JSX.Element {
   const { index } = useRouter().query;
