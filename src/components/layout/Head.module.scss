@@ -1,11 +1,7 @@
+@use '/src//styles/_variables' as var;
+
 .base {
   h1 {
-    display: block;
-    letter-spacing: 0;
-    margin: 0 auto;
-    padding: 0.25em 0 0.325em;
-    text-align: center;
-    text-shadow: 0 0 80px rgba(255, 255, 255, 0.5);
-    font: 700 3em/1.5 'Oswald', sans-serif;
+    font-size: var.$font-size-lg;
   }
 }

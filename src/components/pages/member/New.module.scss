@@ -1,0 +1,22 @@
+@use '/src/styles/variables' as var;
+
+.base {
+  form {
+    label {
+      span {
+        padding: 1px 0;
+      }
+      span:nth-of-type(2) {
+        color: var.$main-color;
+        border-bottom: var.$border-accent;
+        font-size: var.$font-size-md;
+      }
+    }
+    input[type='submit'] {
+      margin-top: 20px;
+      border: var.$border-main;
+      border-style: groove;
+      padding: 10px;
+    }
+  }
+}
