@@ -45,25 +45,19 @@ export default function New(): JSX.Element {
       {flashSendEmail ? <div>メールが送られました</div> : null}
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="name">
-          <span>Name：</span>
-          {errors.nameRequired?.type === 'required' && (
-            <span>必須項目です</span>
-          )}
+          <span>Name</span>
           <input
             id="name"
             defaultValue={formName}
             onInput={(e) => setFormName(e.currentTarget.value)}
             {...register('nameRequired', { required: true })}
           />
-        </label>
-        <label htmlFor="email">
-          <span>Email：</span>
-          {errors.emailRequired?.type === 'required' && (
+          {errors.nameRequired?.type === 'required' && (
             <span>必須項目です</span>
           )}
-          {errors.emailRequired?.type === 'pattern' && (
-            <span>メールアドレスではありません</span>
-          )}
+        </label>
+        <label htmlFor="email">
+          <span>Email</span>
           <input
             id="email"
             defaultValue={formEmail}
@@ -74,17 +68,15 @@ export default function New(): JSX.Element {
                 /^^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{1,}$/i,
             })}
           />
-        </label>
-        <label htmlFor="password">
-          <span>Password：</span>
-          {errors.passwordRequired?.type === 'required' && (
+          {errors.emailRequired?.type === 'required' && (
             <span>必須項目です</span>
           )}
-          {errors.passwordRequired?.type === 'pattern' && (
-            <span>
-              半角英小文字,大文字,数字を1種類以上を含んで、8文字以上24文字以下にして下さい
-            </span>
+          {errors.emailRequired?.type === 'pattern' && (
+            <span>メールアドレスではありません</span>
           )}
+        </label>
+        <label htmlFor="password">
+          <span>Password</span>
           <input
             id="password"
             defaultValue={formPassword}
@@ -94,6 +86,14 @@ export default function New(): JSX.Element {
               pattern: /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,24}$/,
             })}
           />
+          {errors.passwordRequired?.type === 'required' && (
+            <span>必須項目です</span>
+          )}
+          {errors.passwordRequired?.type === 'pattern' && (
+            <span>
+              半角英小文字,大文字,数字を1種類以上を含み8文字以上24文字以下にして下さい
+            </span>
+          )}
         </label>
         <input
           type="submit"
