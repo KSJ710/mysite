@@ -2,7 +2,11 @@
 
 .base {
   form {
+    label:not(label:first-of-type) {
+      margin-top: 50px;
+    }
     label {
+      display: block;
       span {
         padding: 1px 0;
       }
@@ -13,10 +17,16 @@
       }
     }
     input[type='submit'] {
-      margin-top: 20px;
+      width: auto;
+      margin-top: 50px;
       border: var.$border-main;
       border-style: groove;
       padding: 10px;
+      box-shadow: 0 2px 0 var.$main-color; /* 影の太さ・色 */
+    }
+    input[type='submit']:hover:active {
+      transform: translateY(2px);
+      box-shadow: none;
     }
   }
 }
