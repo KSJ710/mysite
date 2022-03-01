@@ -24,7 +24,7 @@ export default function SignIn({ csrfToken }) {
           autoComplete="current-password"
         />
       </label>
-      <input type="submit" value="Sign in" />
+      <input type="submit" value="ログイン" />
       {error && <div>ログインID又はパスワードが間違っています。</div>}
     </form>
   );
