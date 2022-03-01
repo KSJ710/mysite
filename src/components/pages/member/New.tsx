@@ -31,7 +31,6 @@ export default function New(): JSX.Element {
     watch,
     formState: { errors },
   } = useForm<Inputs>();
-  console.log(errors);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const { nameRequired, emailRequired, passwordRequired } = data;
