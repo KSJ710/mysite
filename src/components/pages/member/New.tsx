@@ -42,6 +42,7 @@ export default function New(): JSX.Element {
   return (
     <div className={styles.base}>
       {flashSendEmail ? <div>メールが送られました</div> : null}
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="name">
           <span>Name</span>
@@ -55,6 +56,7 @@ export default function New(): JSX.Element {
             <span>必須項目です</span>
           )}
         </label>
+
         <label htmlFor="email">
           <span>Email</span>
           <input
@@ -74,6 +76,7 @@ export default function New(): JSX.Element {
             <span>メールアドレスではありません</span>
           )}
         </label>
+
         <label htmlFor="password">
           <span>Password</span>
           <input
@@ -94,6 +97,20 @@ export default function New(): JSX.Element {
             </span>
           )}
         </label>
+
+        <label htmlFor="name">
+          <span>Name</span>
+          <input
+            id="name"
+            defaultValue={formName}
+            onInput={(e) => setFormName(e.currentTarget.value)}
+            {...register('nameRequired', { required: true })}
+          />
+          {errors.nameRequired?.type === 'required' && (
+            <span>必須項目です</span>
+          )}
+        </label>
+
         <input
           type="submit"
           value="メールアドレス確認"
