@@ -15,4 +15,14 @@
     gap: 20px;
     background-color: var.$base-color;
   }
+  button {
+    position: fixed;
+    right: 32px;
+    bottom: 32px;
+    width: 48px;
+    height: 48px;
+    border-radius: 9999px;
+    border: var.$border-main;
+    background-color: var.$base-color;
+  }
 }

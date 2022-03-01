@@ -20,11 +20,11 @@ const Head = (props): JSX.Element => {
 
   let loginState = '';
   if (status === 'loading') {
-    loginState = 'yellow';
+    loginState = '#e6b422';
   } else if (status === 'authenticated') {
-    loginState = 'green';
+    loginState = '#007b43';
   } else {
-    loginState = 'white';
+    loginState = '#f7fcfe';
   }
 
   let list = [];
@@ -34,7 +34,7 @@ const Head = (props): JSX.Element => {
         value: 'ホーム',
         href: '/home',
         shallow: true,
-        event: props.handleTglDisp,
+        event: handleTglDisp,
       },
       {
         value: 'ログアウト',
@@ -49,7 +49,7 @@ const Head = (props): JSX.Element => {
         value: 'マイページ',
         href: '/mypage',
         shallow: true,
-        event: props.handleTglDisp,
+        event: handleTglDisp,
       },
     ];
   } else {
@@ -58,19 +58,19 @@ const Head = (props): JSX.Element => {
         value: 'ホーム',
         href: '/home',
         shallow: true,
-        event: props.handleTglDisp,
+        event: handleTglDisp,
       },
       {
         value: 'ログイン',
         href: '/auth/credentials-signin',
         shallow: false,
-        event: props.handleTglDisp,
+        event: handleTglDisp,
       },
       {
         value: 'アカウント作成',
         href: '/member/new',
         shallow: true,
-        event: props.handleTglDisp,
+        event: handleTglDisp,
       },
     ];
   }
@@ -81,7 +81,6 @@ const Head = (props): JSX.Element => {
         <List value={list} />
       </ul>
       <button
-        className="fixed right-8 bottom-8 w-16 h-16 rounded-full border-2 border-slate-900"
         style={{ backgroundColor: loginState }}
         onClick={handleTglDisp}
       ></button>
