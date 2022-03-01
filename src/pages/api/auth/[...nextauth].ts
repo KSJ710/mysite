@@ -64,7 +64,7 @@ export default NextAuth({
 
         // If no error and we have user data, return it
         const member = await checkUser(req.body.email, req.body.password);
-        if (member) {
+        if (member && member.confirmStatus === '1') {
           return { name: member.name, email: member.email };
         }
 
