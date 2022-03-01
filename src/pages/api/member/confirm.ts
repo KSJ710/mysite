@@ -22,7 +22,7 @@ export default async function handler(
         data: { confirmStatus: '1' },
       });
 
-      if (member) res.redirect(302, '/login?confirm=success');
+      if (member) res.redirect(302, '/home?confirm=success');
       res.redirect(302, '/home?confirm=fail');
       break;
 
