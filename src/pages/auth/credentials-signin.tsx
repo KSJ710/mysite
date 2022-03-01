@@ -4,6 +4,7 @@ import styles from './CredentialsSignin.module.scss';
 
 export default function SignIn({ csrfToken }) {
   const { error } = useRouter().query;
+
   return (
     <form
       method="post"
@@ -13,11 +14,15 @@ export default function SignIn({ csrfToken }) {
       <input name="csrfToken" type="hidden" value={csrfToken} />
       <label>
         Email
-        <input name="email" type="text" />
+        <input name="email" type="text" autoComplete="username" />
       </label>
       <label>
         Password
-        <input name="password" type="password" />
+        <input
+          name="password"
+          type="password"
+          autoComplete="current-password"
+        />
       </label>
       <input type="submit" value="Sign in" />
       {error && <div>ログインID又はパスワードが間違っています。</div>}
