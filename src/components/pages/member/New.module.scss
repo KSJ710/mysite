@@ -24,7 +24,7 @@
       padding: 10px;
       box-shadow: 0 2px 0 var.$main-color; /* 影の太さ・色 */
     }
-    input[type='submit']:hover:active {
+    input[type='submit']:hover {
       transform: translateY(2px);
       box-shadow: none;
     }
