@@ -1,10 +1,15 @@
 import { useRouter } from 'next/router';
 import { getCsrfToken } from 'next-auth/react';
+import styles from './CredentialsSignin.module.scss';
 
 export default function SignIn({ csrfToken }) {
   const { error } = useRouter().query;
   return (
-    <form method="post" action="/api/auth/callback/credentials">
+    <form
+      method="post"
+      action="/api/auth/callback/credentials"
+      className={styles.base}
+    >
       <input name="csrfToken" type="hidden" value={csrfToken} />
       <label>
         Email
@@ -14,7 +19,7 @@ export default function SignIn({ csrfToken }) {
         Password
         <input name="password" type="password" />
       </label>
-      <button type="submit">Sign in</button>
+      <input type="submit" value="Sign in" />
       {error && <div>ログインID又はパスワードが間違っています。</div>}
     </form>
   );

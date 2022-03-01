@@ -1,3 +1,4 @@
+@use '/src/styles/_button' as but;
 @use '/src/styles/variables' as var;
 
 .base {
@@ -17,16 +18,10 @@
       }
     }
     input[type='submit'] {
-      width: auto;
-      margin-top: 50px;
-      border: var.$border-main;
-      border-style: groove;
-      padding: 10px;
-      box-shadow: 0 2px 0 var.$main-color; /* 影の太さ・色 */
+      @include but.submit_button;
     }
     input[type='submit']:hover {
-      transform: translateY(2px);
-      box-shadow: none;
+      @include but.submit_button_hover;
     }
   }
 }

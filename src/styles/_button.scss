@@ -1,0 +1,16 @@
+@use '/src/styles/_variables' as var;
+
+@mixin submit_button {
+  width: auto;
+  margin-top: 30px;
+  border-radius: 9999px;
+  border: var.$border-main;
+  border-style: groove;
+  padding: 10px;
+  box-shadow: 0 2px 0 var.$main-color; /* 影の太さ・色 */
+}
+
+@mixin submit_button_hover {
+  transform: translateY(2px);
+  box-shadow: none;
+}
