@@ -22,7 +22,7 @@ const Head = (props): JSX.Element => {
   if (status === 'loading') {
     loginState = '#e6b422';
   } else if (status === 'authenticated') {
-    loginState = '#007b43';
+    loginState = '#069419';
   } else {
     loginState = '#f7fcfe';
   }
