@@ -25,7 +25,8 @@ h1 {
   font-size: 4.8rem;
 }
 
-form input {
+form input,
+form select {
   box-sizing: border-box;
   width: 100%;
   border-bottom: var.$border-main;
