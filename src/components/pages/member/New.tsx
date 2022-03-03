@@ -9,6 +9,9 @@ import {
 } from 'src/atoms/member/atoms';
 // その他ライブラリ
 import axios from 'axios';
+// helper
+import { usePrefectures } from 'src/helper/custom_hook/m_prefecture';
+import { useCity } from 'src/helper/custom_hook/m_city';
 // sass
 import styles from './New.module.scss';
 
@@ -16,15 +19,30 @@ type Inputs = {
   nameRequired: string;
   emailRequired: string;
   passwordRequired: string;
+  confirmPasswordRequired: string;
+  prefecture: string;
+  city: string;
 };
 
 export default function New(): JSX.Element {
+  // form state
   const [formName, setFormName] = useRecoilState(newMemberFormNameState);
   const [formEmail, setFormEmail] = useRecoilState(newMemberFormEmailState);
-  const [formPassword, setformPassword] = useRecoilState(
+  const [formPassword, setFormPassword] = useRecoilState(
     newMemberFormPasswordState
   );
+  const [formConfirmPassword, setFormConfirmPassword] = useRecoilState(
+    newMemberFormEmailState
+  );
+  const [formPrefecture, setFormPrefecture] = useRecoilState(
+    newMemberFormNameState
+  );
+  const [formCity, setFormCity] = useRecoilState(newMemberFormNameState);
+
+  // メール送信フラッシュ
   const [flashSendEmail, setFlashSendEmail] = useState(false);
+
+  // react-hoook-form
   const {
     register,
     handleSubmit,
@@ -32,6 +50,7 @@ export default function New(): JSX.Element {
     formState: { errors },
   } = useForm<Inputs>();
 
+  //  submitされた時のイベント
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const { nameRequired, emailRequired, passwordRequired } = data;
     createMember(nameRequired, emailRequired, passwordRequired).then(() => {
@@ -43,9 +62,10 @@ export default function New(): JSX.Element {
     <div className={styles.base}>
       {flashSendEmail ? <div>メールが送られました</div> : null}
 
+      <h1>アカウント作成</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="name">
-          <span>Name</span>
+          <span>名前</span>
           <input
             id="name"
             defaultValue={formName}
@@ -58,7 +78,7 @@ export default function New(): JSX.Element {
         </label>
 
         <label htmlFor="email">
-          <span>Email</span>
+          <span>メールアドレス</span>
           <input
             id="email"
             defaultValue={formEmail}
@@ -73,16 +93,17 @@ export default function New(): JSX.Element {
             <span>必須項目です</span>
           )}
           {errors.emailRequired?.type === 'pattern' && (
-            <span>メールアドレスではありません</span>
+            <span>メールアドレスに誤りがあります</span>
           )}
         </label>
 
         <label htmlFor="password">
-          <span>Password</span>
+          <span>パスワード</span>
           <input
             id="password"
+            type="password"
             defaultValue={formPassword}
-            onInput={(e) => setformPassword(e.currentTarget.value)}
+            onInput={(e) => setFormPassword(e.currentTarget.value)}
             {...register('passwordRequired', {
               required: true,
               pattern: /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,24}$/,
@@ -98,17 +119,34 @@ export default function New(): JSX.Element {
           )}
         </label>
 
-        <label htmlFor="name">
-          <span>Name</span>
+        <label htmlFor="confirmPassword">
+          <span>もう一度パスワードを入力して下さい</span>
           <input
-            id="name"
-            defaultValue={formName}
-            onInput={(e) => setFormName(e.currentTarget.value)}
-            {...register('nameRequired', { required: true })}
+            id="confirmPassword"
+            type="password"
+            defaultValue={formConfirmPassword}
+            onInput={(e) => setFormConfirmPassword(e.currentTarget.value)}
+            {...register('confirmPasswordRequired', {
+              required: true,
+              pattern: /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,24}$/,
+            })}
           />
-          {errors.nameRequired?.type === 'required' && (
-            <span>必須項目です</span>
-          )}
+          {errors.confirmPasswordRequired?.type === 'required' &&
+            formPassword !== '' && <span>パスワードを再度入力して下さい</span>}
+        </label>
+
+        <label htmlFor="prefecture">
+          <span>都道府県</span>
+          <select id="prefecture" {...register('prefecture')}>
+            <FormSelectPrefecture />
+          </select>
+        </label>
+
+        <label htmlFor="city">
+          <span>市町村</span>
+          <select id="city" {...register('city')}>
+            <FormSelectCity />
+          </select>
         </label>
 
         <input
@@ -132,4 +170,28 @@ async function createMember(name, email, password) {
   } catch (error) {
     console.error(error);
   }
+}
+
+function FormSelectPrefecture(): JSX.Element {
+  const { prefectures, isLoading, isError } = usePrefectures();
+  if (isLoading) return <option>読込中</option>;
+  if (isError) return <option>エラーが起きています</option>;
+
+  return prefectures.map((prefecture) => (
+    <option key={prefecture.id} value={prefecture.name}>
+      {prefecture.name}
+    </option>
+  ));
+}
+
+function FormSelectCity(): JSX.Element {
+  const { cities, isLoading, isError } = useCity();
+  if (isLoading) return <option>読込中</option>;
+  if (isError) return <option>エラーが起きています</option>;
+
+  return cities.map((cities) => (
+    <option key={cities.id} value={cities.name}>
+      {cities.name}
+    </option>
+  ));
 }
