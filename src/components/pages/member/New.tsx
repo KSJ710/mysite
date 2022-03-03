@@ -137,7 +137,7 @@ export default function New(): JSX.Element {
 
         <label htmlFor="prefecture">
           <span>都道府県</span>
-          <select id="prefecture" {...register('prefecture')}>
+          <select id="prefecture" {...register('prefecture')} onChange={null}>
             <FormSelectPrefecture />
           </select>
         </label>
@@ -189,9 +189,9 @@ function FormSelectCity(): JSX.Element {
   if (isLoading) return <option>読込中</option>;
   if (isError) return <option>エラーが起きています</option>;
 
-  return cities.map((cities) => (
-    <option key={cities.id} value={cities.name}>
-      {cities.name}
+  return cities.map((city) => (
+    <option key={city.id} value={city.name}>
+      {city.name}
     </option>
   ));
 }
