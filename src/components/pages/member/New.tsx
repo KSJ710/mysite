@@ -38,6 +38,7 @@ export default function New(): JSX.Element {
     newMemberFormNameState
   );
   const [formCity, setFormCity] = useRecoilState(newMemberFormNameState);
+  const [prefectureState, setPrefectureState] = useState('1');
 
   // メール送信フラッシュ
   const [flashSendEmail, setFlashSendEmail] = useState(false);
@@ -137,7 +138,11 @@ export default function New(): JSX.Element {
 
         <label htmlFor="prefecture">
           <span>都道府県</span>
-          <select id="prefecture" {...register('prefecture')} onChange={null}>
+          <select
+            id="prefecture"
+            {...register('prefecture')}
+            onChange={(e) => setPrefectureState(e.currentTarget.value)}
+          >
             <FormSelectPrefecture />
           </select>
         </label>
@@ -145,7 +150,7 @@ export default function New(): JSX.Element {
         <label htmlFor="city">
           <span>市町村</span>
           <select id="city" {...register('city')}>
-            <FormSelectCity />
+            <FormSelectCity prefectureId={prefectureState} />
           </select>
         </label>
 
@@ -178,19 +183,19 @@ function FormSelectPrefecture(): JSX.Element {
   if (isError) return <option>エラーが起きています</option>;
 
   return prefectures.map((prefecture) => (
-    <option key={prefecture.id} value={prefecture.name}>
+    <option key={prefecture.id} value={prefecture.id}>
       {prefecture.name}
     </option>
   ));
 }
 
-function FormSelectCity(): JSX.Element {
-  const { cities, isLoading, isError } = useCity();
+function FormSelectCity(props): JSX.Element {
+  const { cities, isLoading, isError } = useCity(props.prefectureId);
   if (isLoading) return <option>読込中</option>;
   if (isError) return <option>エラーが起きています</option>;
 
   return cities.map((city) => (
-    <option key={city.id} value={city.name}>
+    <option key={city.id} value={city.id}>
       {city.name}
     </option>
   ));
