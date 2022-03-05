@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import { getCsrfToken } from 'next-auth/react';
+import LoginError from 'src/components/common/Flash';
 import styles from './CredentialsSignin.module.scss';
+import { useState } from 'react';
 
 export default function SignIn({ csrfToken }) {
   const { error } = useRouter().query;
@@ -25,7 +27,12 @@ export default function SignIn({ csrfToken }) {
         />
       </label>
       <input type="submit" value="ログイン" />
-      {error && <div>ログインID又はパスワードが間違っています。</div>}
+      {error && (
+        <LoginError
+          backgroundColor={'#00c76c'}
+          text={'ログインID又はパスワードが間違っています。'}
+        />
+      )}
     </form>
   );
 }

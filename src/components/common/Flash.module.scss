@@ -1,0 +1,39 @@
+@use '/src/styles/_variables' as var;
+
+.base {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: var.$padding-md;
+  font-size: var.$font-size-xl;
+  line-height: 6rem;
+  color: #fff;
+
+  .close_button {
+    display: block;
+    position: absolute;
+    top: var.$margin-md * 2;
+    right: var.$margin-md;
+    width: var.$font-size-xl * 1.5;
+    height: var.$font-size-xl / 7.5;
+    transform: rotate(45deg);
+    border-radius: var.$font-size-xl / 1.5;
+    background-color: currentColor;
+    line-height: 1;
+    vertical-align: middle;
+    color: #333;
+  }
+
+  .close_button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(90deg);
+    border-radius: inherit;
+    background: inherit;
+  }
+}
