@@ -102,7 +102,7 @@ export default function New(): JSX.Element {
           <span>パスワード</span>
           <input
             id="password"
-            type="password"
+            type="new-password"
             defaultValue={formPassword}
             onInput={(e) => setFormPassword(e.currentTarget.value)}
             {...register('passwordRequired', {
@@ -124,7 +124,7 @@ export default function New(): JSX.Element {
           <span>もう一度パスワードを入力して下さい</span>
           <input
             id="confirmPassword"
-            type="password"
+            type="new-password"
             defaultValue={formConfirmPassword}
             onInput={(e) => setFormConfirmPassword(e.currentTarget.value)}
             {...register('confirmPasswordRequired', {
