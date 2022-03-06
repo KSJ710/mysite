@@ -3,13 +3,7 @@ import { useRecoilState } from 'recoil';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import axios from 'axios';
 // atom
-import {
-  newMemberFormNameState,
-  newMemberFormEmailState,
-  newMemberFormPasswordState,
-  newMemberFormConfirmPasswordState,
-  newMemberFormState,
-} from 'src/atoms/member/atoms';
+import { newMemberFormState } from 'src/atoms/member/atoms';
 // コンポーネント
 import FlashCreateMember from 'src/components/common/FlashHead';
 import FlashInputInvalid from 'src/components/common/FlashInvalid';
