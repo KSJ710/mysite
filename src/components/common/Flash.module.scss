@@ -6,8 +6,9 @@
   left: 0;
   width: 100%;
   padding: var.$padding-md;
+  padding-right: 30px;
   font-size: var.$font-size-xl;
-  line-height: 6rem;
+  line-height: 2rem;
   color: #fff;
 
   .close_button {
@@ -20,9 +21,9 @@
     transform: rotate(45deg);
     border-radius: var.$font-size-xl / 1.5;
     background-color: currentColor;
-    line-height: 1;
+    line-height: 1rem;
     vertical-align: middle;
-    color: #333;
+    color: #000;
   }
 
   .close_button::before {
