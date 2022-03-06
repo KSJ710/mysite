@@ -6,6 +6,9 @@ import {
   newMemberFormNameState,
   newMemberFormEmailState,
   newMemberFormPasswordState,
+  newMemberFormConfirmPasswordState,
+  newMemberFormPrefectureState,
+  newMemberFormCityState,
 } from 'src/atoms/member/atoms';
 // その他ライブラリ
 import axios from 'axios';
@@ -32,12 +35,12 @@ export default function New(): JSX.Element {
     newMemberFormPasswordState
   );
   const [formConfirmPassword, setFormConfirmPassword] = useRecoilState(
-    newMemberFormEmailState
+    newMemberFormConfirmPasswordState
   );
   const [formPrefecture, setFormPrefecture] = useRecoilState(
-    newMemberFormNameState
+    newMemberFormPrefectureState
   );
-  const [formCity, setFormCity] = useRecoilState(newMemberFormNameState);
+  const [formCity, setFormCity] = useRecoilState(newMemberFormCityState);
 
   // cityの初期親値
   const [prefectureState, setPrefectureState] = useState('1');
