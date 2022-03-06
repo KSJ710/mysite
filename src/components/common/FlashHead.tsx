@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import styles from './Flash.module.scss';
+import styles from './FlashHead.module.scss';
 
 export default function FlashHead(props): JSX.Element {
   const [flashState, setFlashState] = useState('block');

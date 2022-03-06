@@ -12,6 +12,8 @@ import {
 } from 'src/atoms/member/atoms';
 // その他ライブラリ
 import axios from 'axios';
+// コンポーネント
+import FlashInputInvalid from 'src/components/common/FlashInvalid';
 // helper
 import { usePrefectures } from 'src/helper/custom_hook/m_prefecture';
 import { useCity } from 'src/helper/custom_hook/m_city';
@@ -79,7 +81,7 @@ export default function New(): JSX.Element {
             {...register('nameRequired', { required: true })}
           />
           {errors.nameRequired?.type === 'required' && (
-            <span>必須項目です</span>
+            <FlashInputInvalid text="必須項目です" />
           )}
         </label>
 
@@ -97,10 +99,10 @@ export default function New(): JSX.Element {
             })}
           />
           {errors.emailRequired?.type === 'required' && (
-            <span>必須項目です</span>
+            <FlashInputInvalid text="必須項目です" />
           )}
           {errors.emailRequired?.type === 'pattern' && (
-            <span>メールアドレスに誤りがあります</span>
+            <FlashInputInvalid text="メールアドレスに誤りがあります" />
           )}
         </label>
 
@@ -118,12 +120,10 @@ export default function New(): JSX.Element {
             })}
           />
           {errors.passwordRequired?.type === 'required' && (
-            <span>必須項目です</span>
+            <FlashInputInvalid text="必須項目です" />
           )}
           {errors.passwordRequired?.type === 'pattern' && (
-            <span>
-              半角英小文字,大文字,数字を1種類以上を含み8文字以上24文字以下にして下さい
-            </span>
+            <FlashInputInvalid text="半角英小文字,大文字,数字を1種類以上を含み8文字以上24文字以下にして下さい" />
           )}
         </label>
 
@@ -141,7 +141,9 @@ export default function New(): JSX.Element {
             })}
           />
           {errors.confirmPasswordRequired?.type === 'required' &&
-            formPassword !== '' && <span>パスワードを再度入力して下さい</span>}
+            formPassword !== '' && (
+              <FlashInputInvalid text="パスワードを再度入力して下さい" />
+            )}
         </label>
 
         <label htmlFor="prefecture">

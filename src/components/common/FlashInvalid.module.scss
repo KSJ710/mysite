@@ -1,0 +1,8 @@
+@use '/src/styles/_variables' as var;
+
+.base {
+  padding: 1px 0;
+  color: var.$main-color;
+  border-bottom: var.$border-accent;
+  font-size: var.$font-size-md;
+}
