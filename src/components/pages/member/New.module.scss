@@ -8,9 +8,6 @@
     }
     label {
       display: block;
-      span {
-        padding: 1px 0;
-      }
     }
     input[type='submit'] {
       @include but.submit_button;
