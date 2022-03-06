@@ -33,15 +33,9 @@ export default function New(): JSX.Element {
   // form state
   const [formName, setFormName] = useRecoilState(newMemberFormNameState);
   const [formEmail, setFormEmail] = useRecoilState(newMemberFormEmailState);
-  const [formPassword, setFormPassword] = useRecoilState(
-    newMemberFormPasswordState
-  );
-  const [formConfirmPassword, setFormConfirmPassword] = useRecoilState(
-    newMemberFormConfirmPasswordState
-  );
-  const [formPrefecture, setFormPrefecture] = useRecoilState(
-    newMemberFormPrefectureState
-  );
+  const [formPassword, setFormPassword] = useRecoilState(newMemberFormPasswordState);
+  const [formConfirmPassword, setFormConfirmPassword] = useRecoilState(newMemberFormConfirmPasswordState);
+  const [formPrefecture, setFormPrefecture] = useRecoilState(newMemberFormPrefectureState);
   const [formCity, setFormCity] = useRecoilState(newMemberFormCityState);
 
   // cityの初期親値
@@ -181,7 +175,6 @@ async function createMember(name, email, password) {
       email: email,
       password: password,
     });
-    return res.data;
   } catch (error) {
     console.error(error);
   }
