@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { getCsrfToken } from 'next-auth/react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+// コンポーネント
 import LoginError from 'src/components/common/Flash';
+// css
 import styles from './CredentialsSignin.module.scss';
-import { useState } from 'react';
 
 export default function SignIn({ csrfToken }) {
   const { error } = useRouter().query;
@@ -15,11 +18,11 @@ export default function SignIn({ csrfToken }) {
     >
       <input name="csrfToken" type="hidden" value={csrfToken} />
       <label>
-        Email
+        <span>メールアドレス</span>
         <input name="email" type="text" autoComplete="username" />
       </label>
       <label>
-        Password
+        <span>パスワード</span>
         <input
           name="password"
           type="password"
@@ -29,8 +32,8 @@ export default function SignIn({ csrfToken }) {
       <input type="submit" value="ログイン" />
       {error && (
         <LoginError
-          backgroundColor={'#00c76c'}
-          text={'ログインID又はパスワードが間違っています。'}
+          backgroundColor={'#c71b00'}
+          text={'メールアドレス又はパスワードが間違っています。'}
         />
       )}
     </form>
