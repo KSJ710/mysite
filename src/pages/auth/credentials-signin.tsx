@@ -5,6 +5,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 // コンポーネント
 import FlashLoginError from 'src/components/common/FlashHead';
 import FlashInputInvalid from 'src/components/common/FlashInvalid';
+// helper
+import { failureColor } from 'src/helper/variables';
 // css
 import styles from './CredentialsSignin.module.scss';
 
@@ -69,7 +71,7 @@ export default function SignIn({ csrfToken }) {
       <input type="submit" value="ログイン" />
       {error && (
         <FlashLoginError
-          backgroundColor={'#c71b00'}
+          backgroundColor={failureColor}
           text={'メールアドレス又はパスワードが間違っています。'}
         />
       )}

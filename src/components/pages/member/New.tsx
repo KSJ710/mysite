@@ -11,10 +11,12 @@ import {
 // その他ライブラリ
 import axios from 'axios';
 // コンポーネント
+import FlashCreateMember from 'src/components/common/FlashHead';
 import FlashInputInvalid from 'src/components/common/FlashInvalid';
 // helper
 import { usePrefectures } from 'src/helper/custom_hook/m_prefecture';
 import { useCity } from 'src/helper/custom_hook/m_city';
+import { successColor } from 'src/helper/variables';
 // sass
 import styles from './New.module.scss';
 
@@ -31,8 +33,12 @@ export default function New(): JSX.Element {
   // form state
   const [formName, setFormName] = useRecoilState(newMemberFormNameState);
   const [formEmail, setFormEmail] = useRecoilState(newMemberFormEmailState);
-  const [formPassword, setFormPassword] = useRecoilState(newMemberFormPasswordState);
-  const [formConfirmPassword, setFormConfirmPassword] = useRecoilState(newMemberFormConfirmPasswordState);
+  const [formPassword, setFormPassword] = useRecoilState(
+    newMemberFormPasswordState
+  );
+  const [formConfirmPassword, setFormConfirmPassword] = useRecoilState(
+    newMemberFormConfirmPasswordState
+  );
 
   // cityの初期親値
   const [prefectureState, setPrefectureState] = useState('1');
@@ -58,7 +64,12 @@ export default function New(): JSX.Element {
 
   return (
     <div className={styles.base}>
-      {flashSendEmail ? <div>メールが送られました</div> : null}
+      {flashSendEmail && (
+        <FlashCreateMember
+          text={'メールが送られました'}
+          backgroundColor={successColor}
+        />
+      )}
 
       <h1>アカウント作成</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
