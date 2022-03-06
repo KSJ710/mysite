@@ -144,6 +144,7 @@ export default function New(): JSX.Element {
           <span>都道府県</span>
           <select
             id="prefecture"
+            defaultValue={formPrefecture}
             {...register('prefecture')}
             onChange={(e) => setPrefectureState(e.currentTarget.value)}
           >
@@ -153,7 +154,7 @@ export default function New(): JSX.Element {
 
         <label htmlFor="city">
           <span>市町村</span>
-          <select id="city" {...register('city')}>
+          <select id="city" defaultValue={formCity} {...register('city')}>
             <FormSelectCity prefectureId={prefectureState} />
           </select>
         </label>
@@ -170,7 +171,7 @@ export default function New(): JSX.Element {
 
 async function createMember(name, email, password) {
   try {
-    const res = await axios.post('/api/member/create', {
+    await axios.post('/api/member/create', {
       name: name,
       email: email,
       password: password,
