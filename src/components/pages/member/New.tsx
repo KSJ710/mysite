@@ -8,6 +8,7 @@ import {
   newMemberFormEmailState,
   newMemberFormPasswordState,
   newMemberFormConfirmPasswordState,
+  newMemberFormState,
 } from 'src/atoms/member/atoms';
 // コンポーネント
 import FlashCreateMember from 'src/components/common/FlashHead';
@@ -30,14 +31,7 @@ type Inputs = {
 
 export default function New(): JSX.Element {
   // form state
-  const [formName, setFormName] = useRecoilState(newMemberFormNameState);
-  const [formEmail, setFormEmail] = useRecoilState(newMemberFormEmailState);
-  const [formPassword, setFormPassword] = useRecoilState(
-    newMemberFormPasswordState
-  );
-  const [formConfirmPassword, setFormConfirmPassword] = useRecoilState(
-    newMemberFormConfirmPasswordState
-  );
+  const [form, setForm] = useRecoilState(newMemberFormState);
 
   // cityの初期親値
   const [prefectureState, setPrefectureState] = useState('1');
@@ -76,8 +70,8 @@ export default function New(): JSX.Element {
           <span>名前</span>
           <input
             id="name"
-            defaultValue={formName}
-            onInput={(e) => setFormName(e.currentTarget.value)}
+            defaultValue={form.name}
+            onInput={(e) => setForm({ ...form, name: e.currentTarget.value })}
             {...register('nameRequired', { required: true })}
           />
           {errors.nameRequired?.type === 'required' && (
@@ -90,8 +84,8 @@ export default function New(): JSX.Element {
           <input
             id="email"
             autoComplete="username"
-            defaultValue={formEmail}
-            onInput={(e) => setFormEmail(e.currentTarget.value)}
+            defaultValue={form.email}
+            onInput={(e) => setForm({ ...form, email: e.currentTarget.value })}
             {...register('emailRequired', {
               required: true,
               pattern:
@@ -112,8 +106,10 @@ export default function New(): JSX.Element {
             id="password"
             type="password"
             autoComplete="new-password"
-            defaultValue={formPassword}
-            onInput={(e) => setFormPassword(e.currentTarget.value)}
+            defaultValue={form.password}
+            onInput={(e) =>
+              setForm({ ...form, password: e.currentTarget.value })
+            }
             {...register('passwordRequired', {
               required: true,
               pattern: /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,24}$/,
@@ -133,15 +129,17 @@ export default function New(): JSX.Element {
             id="confirmPassword"
             type="password"
             autoComplete="new-password"
-            defaultValue={formConfirmPassword}
-            onInput={(e) => setFormConfirmPassword(e.currentTarget.value)}
+            defaultValue={form.confirmPassword}
+            onInput={(e) =>
+              setForm({ ...form, confirmPassword: e.currentTarget.value })
+            }
             {...register('confirmPasswordRequired', {
               required: true,
               pattern: /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,24}$/,
             })}
           />
           {errors.confirmPasswordRequired?.type === 'required' &&
-            formPassword !== '' && (
+            form.password !== '' && (
               <FlashInputInvalid text="パスワードを再度入力して下さい" />
             )}
         </label>
