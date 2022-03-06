@@ -42,9 +42,8 @@ export default function New(): JSX.Element {
   } = useForm<Inputs>();
 
   //  submitされた時のイベント
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const { nameRequired, emailRequired, passwordRequired } = data;
-    createMember(nameRequired, emailRequired, passwordRequired).then(() => {
+  const onSubmit: SubmitHandler<Inputs> = async (form) => {
+    createMember(form).then(() => {
       setFlashSendEmail(true);
     });
   };
@@ -166,12 +165,12 @@ export default function New(): JSX.Element {
   );
 }
 
-async function createMember(name, email, password) {
+async function createMember({ nameRequired, emailRequired, passwordRequired }) {
   try {
     await axios.post('/api/member/create', {
-      name: name,
-      email: email,
-      password: password,
+      name: nameRequired,
+      email: emailRequired,
+      password: passwordRequired,
     });
   } catch (error) {
     console.error(error);
