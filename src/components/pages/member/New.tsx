@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import axios from 'axios';
 // atom
 import {
   newMemberFormNameState,
@@ -8,8 +9,6 @@ import {
   newMemberFormPasswordState,
   newMemberFormConfirmPasswordState,
 } from 'src/atoms/member/atoms';
-// その他ライブラリ
-import axios from 'axios';
 // コンポーネント
 import FlashCreateMember from 'src/components/common/FlashHead';
 import FlashInputInvalid from 'src/components/common/FlashInvalid';
@@ -17,7 +16,7 @@ import FlashInputInvalid from 'src/components/common/FlashInvalid';
 import { usePrefectures } from 'src/helper/custom_hook/m_prefecture';
 import { useCity } from 'src/helper/custom_hook/m_city';
 import { successColor } from 'src/helper/variables';
-// sass
+// css
 import styles from './New.module.scss';
 
 type Inputs = {
