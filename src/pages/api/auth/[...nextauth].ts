@@ -41,6 +41,7 @@ export default NextAuth({
   pages: {
     signIn: '/auth/credentials-signin',
     error: '/auth/credentials-signin?error=true',
+    newUser: '/home',
   },
   providers: [
     CredentialsProvider({
@@ -64,12 +65,8 @@ export default NextAuth({
 
         // If no error and we have user data, return it
         const member = await checkUser(req.body.email, req.body.password);
-        if (member && member.confirmStatus === '1') {
-          return { name: member.name, email: member.email };
-        }
-
-        // Return null if user data could not be retrieved
-        return null;
+        if (member === null) return null;
+        return { name: member.name, email: member.email };
       },
     }),
     EmailProvider({
@@ -103,7 +100,7 @@ export default NextAuth({
     async signIn({ user, account, profile, email, credentials }) {
       const isAllowedToSignIn = true;
       if (isAllowedToSignIn) {
-        return '/home?login=true';
+        return true;
       } else {
         // Return false to display a default error message
         return false;
@@ -151,7 +148,7 @@ async function checkUser(email, password) {
   prisma.$disconnect();
   const match = await bcrypt.compare(password, member.password);
 
-  if (match) {
+  if (match && member.confirmStatus === '1') {
     return member;
   }
   return null;
