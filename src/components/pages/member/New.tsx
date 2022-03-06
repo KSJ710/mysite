@@ -7,8 +7,6 @@ import {
   newMemberFormEmailState,
   newMemberFormPasswordState,
   newMemberFormConfirmPasswordState,
-  newMemberFormPrefectureState,
-  newMemberFormCityState,
 } from 'src/atoms/member/atoms';
 // その他ライブラリ
 import axios from 'axios';
@@ -35,8 +33,6 @@ export default function New(): JSX.Element {
   const [formEmail, setFormEmail] = useRecoilState(newMemberFormEmailState);
   const [formPassword, setFormPassword] = useRecoilState(newMemberFormPasswordState);
   const [formConfirmPassword, setFormConfirmPassword] = useRecoilState(newMemberFormConfirmPasswordState);
-  const [formPrefecture, setFormPrefecture] = useRecoilState(newMemberFormPrefectureState);
-  const [formCity, setFormCity] = useRecoilState(newMemberFormCityState);
 
   // cityの初期親値
   const [prefectureState, setPrefectureState] = useState('1');
@@ -144,7 +140,6 @@ export default function New(): JSX.Element {
           <span>都道府県</span>
           <select
             id="prefecture"
-            defaultValue={formPrefecture}
             {...register('prefecture')}
             onChange={(e) => setPrefectureState(e.currentTarget.value)}
           >
@@ -154,7 +149,7 @@ export default function New(): JSX.Element {
 
         <label htmlFor="city">
           <span>市町村</span>
-          <select id="city" defaultValue={formCity} {...register('city')}>
+          <select id="city" {...register('city')}>
             <FormSelectCity prefectureId={prefectureState} />
           </select>
         </label>
