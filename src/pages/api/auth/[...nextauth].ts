@@ -40,8 +40,6 @@ export default NextAuth({
   },
   pages: {
     signIn: '/auth/credentials-signin',
-    error: '/auth/credentials-signin?error=true',
-    newUser: '/home',
   },
   providers: [
     CredentialsProvider({
@@ -52,8 +50,8 @@ export default NextAuth({
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        email: { label: 'Email', type: 'text', placeholder: '' },
-        password: { label: 'Password', type: 'password' },
+        email: { label: 'email', type: 'text', placeholder: '' },
+        password: { label: 'password', type: 'password' },
       },
       async authorize(credentials, req) {
         // You need to provide your own logic here that takes the credentials
@@ -64,9 +62,17 @@ export default NextAuth({
         // (i.e., the request IP address)
 
         // If no error and we have user data, return it
-        const member = await checkUser(req.body.email, req.body.password);
-        if (member === null) return null;
-        return { name: member.name, email: member.email };
+        try {
+          const { email, password } = credentials;
+          const member = await checkUser(email, password);
+          prisma.$disconnect();
+
+          if (!member) return null;
+          return { name: member.name, email: member.email };
+        } catch (error) {
+          console.log(error);
+          return null;
+        }
       },
     }),
     EmailProvider({
@@ -96,19 +102,7 @@ export default NextAuth({
       },
     }),
   ],
-  callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      const isAllowedToSignIn = true;
-      if (isAllowedToSignIn) {
-        return true;
-      } else {
-        // Return false to display a default error message
-        return false;
-        // Or you can return a URL to redirect to:
-        // return '/unauthorized'
-      }
-    },
-  },
+  callbacks: {},
   events: {
     async createUser(message) {
       /* user created */

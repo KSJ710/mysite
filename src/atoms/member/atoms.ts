@@ -9,3 +9,11 @@ export const newMemberFormState = atom<{
   key: 'newMemberFormState',
   default: { name: '', email: '', password: '', confirmPassword: '' },
 });
+
+export const loginFormState = atom<{
+  email: string;
+  password: string;
+}>({
+  key: 'loginFormState',
+  default: { email: '', password: '' },
+});

@@ -42,8 +42,8 @@ export default function New(): JSX.Element {
   } = useForm<Inputs>();
 
   //  submitされた時のイベント
-  const onSubmit: SubmitHandler<Inputs> = async (form) => {
-    createMember(form).then(() => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    createMember(data).then(() => {
       setFlashSendEmail(true);
     });
   };
