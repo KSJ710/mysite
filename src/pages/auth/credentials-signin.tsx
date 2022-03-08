@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
-import { useSession, getCsrfToken, getSession } from 'next-auth/react';
+import { getCsrfToken, getSession } from 'next-auth/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import axios from 'axios';
 // atom
@@ -12,7 +12,6 @@ import FlashInputInvalid from 'src/components/common/FlashInvalid';
 import { failureColor } from 'src/helper/variables';
 // css
 import styles from './CredentialsSignin.module.scss';
-import { useEffect } from 'react';
 
 type Inputs = {
   emailRequired: string;
