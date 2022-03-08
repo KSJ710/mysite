@@ -40,15 +40,15 @@ export default function SignIn({ csrfToken }): JSX.Element {
     params.append('password', data.passwordRequired);
     params.append('csrfToken', data.csrfToken);
     await axios.post('/api/auth/callback/credentials', params);
-    const session = await getSession();
 
+    const session = await getSession();
     if (!session) {
-      router.push('/auth/credentials-signin?error=true', undefined, {
+      router.push('/auth/credentials-signin?error=login failure', undefined, {
         shallow: true,
       });
     } else {
       location.reload();
-      router.push('/home?login=true', undefined, {
+      router.push(`/home?login=${session.user.name}`, undefined, {
         shallow: true,
       });
     }
