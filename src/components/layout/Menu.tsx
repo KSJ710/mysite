@@ -7,7 +7,7 @@ import List from 'src/components/common/List';
 // css
 import styles from './Menu.module.scss';
 
-const Head = (props): JSX.Element => {
+const Head = (): JSX.Element => {
   const { status } = useSession();
   const [toggleDisplay, setToggleDisplay] = useState<classDisplay>('none');
 
@@ -47,7 +47,7 @@ const Head = (props): JSX.Element => {
       },
       {
         value: 'マイページ',
-        href: '/mypage',
+        href: '/auth/mypage',
         shallow: true,
         event: handleTglDisp,
       },
