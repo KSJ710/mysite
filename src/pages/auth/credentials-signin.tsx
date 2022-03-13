@@ -47,10 +47,10 @@ export default function SignIn({ csrfToken }): JSX.Element {
         shallow: true,
       });
     } else {
-      location.reload();
       router.push(`/home?login=${session.user.name}`, undefined, {
         shallow: true,
       });
+      router.reload();
     }
   };
 
