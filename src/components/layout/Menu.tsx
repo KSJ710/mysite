@@ -7,7 +7,7 @@ import List from 'src/components/common/List';
 // css
 import styles from './Menu.module.scss';
 
-const Head = (): JSX.Element => {
+export default function Menu(): JSX.Element {
   const { status } = useSession();
   const [toggleDisplay, setToggleDisplay] = useState<classDisplay>('none');
 
@@ -86,6 +86,4 @@ const Head = (): JSX.Element => {
       ></button>
     </div>
   );
-};
-
-export default Head;
+}
