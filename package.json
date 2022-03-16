@@ -23,19 +23,21 @@
     "@fortawesome/react-fontawesome": "^0.1.17",
     "@next-auth/prisma-adapter": "^1.0.1",
     "@prisma/client": "^3.10.0",
-    "animejs": "^3.2.1",
     "axios": "^0.26.0",
     "bcrypt": "^5.0.1",
     "dotenv": "^16.0.0",
+    "framer-motion": "^6.2.8",
     "next": "^12.1.0",
     "next-auth": "^4.2.1",
     "nodemailer": "^6.7.2",
+    "prisma": "^3.10.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.27.1",
     "recoil": "^0.6.1",
     "sass": "^1.49.8",
-    "swr": "^1.2.2"
+    "swr": "^1.2.2",
+    "tailwindcss": "^3.0.23"
   },
   "devDependencies": {
     "@types/react": "^17.0.39",
@@ -46,9 +48,7 @@
     "eslint-plugin-tailwindcss": "^3.5.0",
     "postcss": "^8.4.6",
     "prettier": "^2.5.1",
-    "prisma": "^3.10.0",
     "stylelint-config-recommended": "^7.0.0",
-    "tailwindcss": "^3.0.23",
     "ts-node": "^10.5.0",
     "typescript": "^4.5.5"
   }
