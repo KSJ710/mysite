@@ -9,24 +9,28 @@ import styles from './Menu.module.scss';
 
 export default function Menu(): JSX.Element {
   const { status } = useSession();
+  // const status = useRecoilValue(loginMemberState);
   const [toggleDisplay, setToggleDisplay] = useState<classDisplay>('none');
 
   // Menuの表示非表示を切り替える
-  const handleTglDisp = () => {
+  const toggleDisp = () => {
     toggleDisplay == 'none'
       ? setToggleDisplay('flex')
       : setToggleDisplay('none');
   };
 
-  let loginState = '';
-  if (status === 'loading') {
-    loginState = '#e6b422';
-  } else if (status === 'authenticated') {
-    loginState = '#069419';
-  } else {
-    loginState = '#f7fcfe';
-  }
+  return (
+    <div className={styles.base}>
+      <ul style={{ display: toggleDisplay }}>
+        <MenuList toggleDisp={toggleDisp} status={status} />
+      </ul>
+      <MenuButton toggleDisp={toggleDisp} status={status} />
+    </div>
+  );
+}
 
+function MenuList(props) {
+  const { toggleDisp, status } = props;
   let list = [];
   if (status === 'authenticated') {
     list = [
@@ -34,7 +38,7 @@ export default function Menu(): JSX.Element {
         value: 'ホーム',
         href: '/home',
         shallow: true,
-        event: handleTglDisp,
+        event: toggleDisp,
       },
       {
         value: 'ログアウト',
@@ -49,7 +53,7 @@ export default function Menu(): JSX.Element {
         value: 'マイページ',
         href: '/auth/mypage',
         shallow: true,
-        event: handleTglDisp,
+        event: toggleDisp,
       },
     ];
   } else {
@@ -58,32 +62,39 @@ export default function Menu(): JSX.Element {
         value: 'ホーム',
         href: '/home',
         shallow: true,
-        event: handleTglDisp,
+        event: toggleDisp,
       },
       {
         value: 'ログイン',
         href: '/auth/credentials-signin',
         shallow: false,
-        event: handleTglDisp,
+        event: toggleDisp,
       },
       {
         value: 'アカウント作成',
         href: '/member/new',
         shallow: true,
-        event: handleTglDisp,
+        event: toggleDisp,
       },
     ];
   }
+  return <List value={list} />;
+}
 
+function MenuButton(props) {
+  const { toggleDisp, status } = props;
+  let loginState = '';
+  if (status === 'loading') {
+    loginState = '#e6b422';
+  } else if (status === 'authenticated') {
+    loginState = '#069419';
+  } else {
+    loginState = '#f7fcfe';
+  }
   return (
-    <div className={styles.base}>
-      <ul style={{ display: toggleDisplay }}>
-        <List value={list} />
-      </ul>
-      <button
-        style={{ backgroundColor: loginState }}
-        onClick={handleTglDisp}
-      ></button>
-    </div>
+    <button
+      style={{ backgroundColor: loginState }}
+      onClick={toggleDisp}
+    ></button>
   );
 }
