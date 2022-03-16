@@ -12,6 +12,7 @@ import FlashInputInvalid from 'src/components/common/FlashInvalid';
 import { failureColor } from 'src/helper/variables';
 // css
 import styles from './CredentialsSignin.module.scss';
+import { useEffect } from 'react';
 
 type Inputs = {
   emailRequired: string;
@@ -22,7 +23,6 @@ type Inputs = {
 export default function SignIn({ csrfToken }): JSX.Element {
   const router = useRouter();
   const { error } = router.query;
-
   const [form, setForm] = useRecoilState(loginFormState);
 
   // react-hoook-form
@@ -43,14 +43,11 @@ export default function SignIn({ csrfToken }): JSX.Element {
     const session = await getSession();
 
     if (!session) {
-      router.push('/auth/credentials-signin?error=true', undefined, {
+      router.push('/auth/credentials-signin?error=login-failure', undefined, {
         shallow: true,
       });
     } else {
-      location.reload();
-      router.push('/home?login=true', undefined, {
-        shallow: true,
-      });
+      router.push('/home?state=login-success', undefined, { shallow: true });
     }
   };
 
@@ -112,6 +109,23 @@ export async function getServerSideProps(context) {
     },
   };
 }
+
+// function useRefreshLoginState(router) {
+//   useEffect(() => {
+//     router.events.on('routeChangeComplete', (url, { shallow }) => {
+//       console.log('0---------------');
+//       console.log(url);
+//       if (url === '/home?state=login-success') {
+//         console.log('1---------------');
+//         console.log(shallow);
+//         if (shallow) {
+//           console.log('2---------------');
+//           location.reload();
+//         }
+//       }
+//     });
+//   });
+// }
 
 SignIn.props = {
   layout: 'main',
