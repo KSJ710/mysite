@@ -46,7 +46,7 @@ function MenuList(props) {
         shallow: false,
         event: () =>
           signOut({
-            callbackUrl: 'http://localhost:3000/auth/credentials-signin',
+            callbackUrl: `${process.env.LOCAL_URL}/auth/credentials-signin`,
           }),
       },
       {
