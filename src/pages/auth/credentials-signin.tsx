@@ -22,6 +22,14 @@ type Inputs = {
 
 export default function SignIn({ csrfToken }): JSX.Element {
   const router = useRouter();
+  useEffect(() => {
+    getSession().then((session) => {
+      if (session) {
+        console.log(session);
+        router.push('/home?state=signin-success', undefined, { shallow: true });
+      }
+    });
+  });
   const { error } = router.query;
   const [form, setForm] = useRecoilState(loginFormState);
 
@@ -43,11 +51,11 @@ export default function SignIn({ csrfToken }): JSX.Element {
 
     const session = await getSession();
     if (!session) {
-      router.push('/auth/credentials-signin?error=login-failure', undefined, {
+      router.push('/auth/credentials-signin?error=signin-failure', undefined, {
         shallow: true,
       });
     } else {
-      router.push('/home?state=login-success', undefined, { shallow: true });
+      location.reload();
     }
   };
 
@@ -110,6 +118,7 @@ export async function getServerSideProps(context) {
   };
 }
 
+// ログイン後もログインページを表示させたい場合
 // function useRefreshLoginState(router) {
 //   useEffect(() => {
 //     router.events.on('routeChangeComplete', (url, { shallow }) => {
