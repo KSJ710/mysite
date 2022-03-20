@@ -20,29 +20,11 @@ export default function MyApp({
 }: AppProps): JSX.Element {
   const router = useRouter();
   const [loadState, setLoadState] = useState(false);
-
-  useEffect(() => {
-    const loadOn = () => {
-      setLoadState(true);
-    };
-    const loadOff = () => {
-      setLoadState(false);
-    };
-
-    router.events.on('routeChangeStart', loadOn);
-    router.events.on('routeChangeComplete', loadOff);
-    router.events.on('routeChangeError', loadOff);
-
-    return () => {
-      router.events.off('routeChangeStart', loadOn);
-      router.events.off('routeChangeComplete', loadOff);
-      router.events.off('routeChangeError', loadOff);
-    };
-  });
+  useLoadEvent(router, setLoadState);
 
   const ComponentPageProps = () => {
     if (loadState) {
-      return <div>loadding...</div>;
+      return <Load />;
     } else {
       return <Component {...pageProps} />;
     }
@@ -89,4 +71,25 @@ function Auth({ children }) {
     return children;
   }
   return <Load />;
+}
+
+function useLoadEvent(router, setLoadState) {
+  useEffect(() => {
+    const loadOn = () => {
+      setLoadState(true);
+    };
+    const loadOff = () => {
+      setLoadState(false);
+    };
+
+    router.events.on('routeChangeStart', loadOn);
+    router.events.on('routeChangeComplete', loadOff);
+    router.events.on('routeChangeError', loadOff);
+
+    return () => {
+      router.events.off('routeChangeStart', loadOn);
+      router.events.off('routeChangeComplete', loadOff);
+      router.events.off('routeChangeError', loadOff);
+    };
+  });
 }
