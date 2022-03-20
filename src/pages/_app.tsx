@@ -32,7 +32,7 @@ export default function MyApp({
 
   if (Component?.props?.auth && Component?.props?.layout === 'main') {
     return (
-      <SessionProvider session={session}>
+      <SessionProvider {...session}>
         <RecoilRoot>
           <Auth>
             <Base>
@@ -44,7 +44,7 @@ export default function MyApp({
     );
   } else if (Component?.props?.layout === 'main') {
     return (
-      <SessionProvider session={session}>
+      <SessionProvider {...session}>
         <RecoilRoot>
           <Base>
             <ComponentPageProps />
@@ -54,7 +54,7 @@ export default function MyApp({
     );
   } else {
     return (
-      <SessionProvider session={session}>
+      <SessionProvider {...session}>
         <RecoilRoot>
           <ComponentPageProps />
         </RecoilRoot>
