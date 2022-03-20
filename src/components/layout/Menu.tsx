@@ -9,7 +9,6 @@ import styles from './Menu.module.scss';
 
 export default function Menu(): JSX.Element {
   const { status } = useSession();
-  // const status = useRecoilValue(loginMemberState);
   const [toggleDisplay, setToggleDisplay] = useState<classDisplay>('none');
 
   // Menuの表示非表示を切り替える

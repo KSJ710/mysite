@@ -25,7 +25,6 @@ export default function SignIn({ csrfToken }): JSX.Element {
   useEffect(() => {
     getSession().then((session) => {
       if (session) {
-        console.log(session);
         router.push('/home?state=signin-success', undefined, { shallow: true });
       }
     });
@@ -117,24 +116,6 @@ export async function getServerSideProps(context) {
     },
   };
 }
-
-// ログイン後もログインページを表示させたい場合
-// function useRefreshLoginState(router) {
-//   useEffect(() => {
-//     router.events.on('routeChangeComplete', (url, { shallow }) => {
-//       console.log('0---------------');
-//       console.log(url);
-//       if (url === '/home?state=login-success') {
-//         console.log('1---------------');
-//         console.log(shallow);
-//         if (shallow) {
-//           console.log('2---------------');
-//           location.reload();
-//         }
-//       }
-//     });
-//   });
-// }
 
 SignIn.props = {
   layout: 'main',
