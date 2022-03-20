@@ -7,6 +7,8 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import Base from 'src/components/layout/Base';
 import Load from 'src/components/common/Load';
 import 'src/styles/global.scss';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 // fasのFontAwesomeIconコンポネントを全体で使用できる下記参照
 // https://fontawesome.com/v5.15/how-to-use/on-the-web/using-with/react
@@ -16,13 +18,43 @@ export default function MyApp({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps): JSX.Element {
+  const router = useRouter();
+  const [loadState, setLoadState] = useState(false);
+
+  useEffect(() => {
+    const loadOn = () => {
+      setLoadState(true);
+    };
+    const loadOff = () => {
+      setLoadState(false);
+    };
+
+    router.events.on('routeChangeStart', loadOn);
+    router.events.on('routeChangeComplete', loadOff);
+    router.events.on('routeChangeError', loadOff);
+
+    return () => {
+      router.events.off('routeChangeStart', loadOn);
+      router.events.off('routeChangeComplete', loadOff);
+      router.events.off('routeChangeError', loadOff);
+    };
+  });
+
+  const ComponentPageProps = () => {
+    if (loadState) {
+      return <div>loadding...</div>;
+    } else {
+      return <Component {...pageProps} />;
+    }
+  };
+
   if (Component?.props?.auth && Component?.props?.layout === 'main') {
     return (
       <SessionProvider session={session}>
         <RecoilRoot>
           <Auth>
             <Base>
-              <Component {...pageProps} />
+              <ComponentPageProps />
             </Base>
           </Auth>
         </RecoilRoot>
@@ -33,7 +65,7 @@ export default function MyApp({
       <SessionProvider session={session}>
         <RecoilRoot>
           <Base>
-            <Component {...pageProps} />
+            <ComponentPageProps />
           </Base>
         </RecoilRoot>
       </SessionProvider>
@@ -42,7 +74,7 @@ export default function MyApp({
     return (
       <SessionProvider session={session}>
         <RecoilRoot>
-          <Component {...pageProps} />
+          <ComponentPageProps />
         </RecoilRoot>
       </SessionProvider>
     );
