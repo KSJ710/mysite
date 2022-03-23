@@ -11,29 +11,11 @@ $speed: 2.5s;
   margin: auto;
   display: flex;
   flex-wrap: wrap;
+  overflow: hidden;
 
   div {
-    display: block;
     position: absolute;
     border: 1px solid var.$main-color;
     background-color: var.$main-color;
-  }
-}
-
-@keyframes load {
-  0% {
-    background: #ccc;
-    margin-top: 25%;
-    height: 10%;
-  }
-  50% {
-    background: #444;
-    height: 100%;
-    margin-top: 0%;
-  }
-  100% {
-    background: #ccc;
-    height: 10%;
-    margin-top: 25%;
   }
 }
