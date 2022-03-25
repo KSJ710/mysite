@@ -3,19 +3,65 @@
 $speed: 2.5s;
 
 .base {
+  display: flex;
   position: absolute;
   top: 0px;
   bottom: 0px;
   left: 0px;
   right: 0px;
   margin: auto;
-  display: flex;
   flex-wrap: wrap;
   overflow: hidden;
+  background-color: transparent;
 
   div {
     position: absolute;
-    border: 1px solid var.$main-color;
-    background-color: var.$main-color;
+    z-index: 1;
+    background-color: var.$base-color;
+  }
+  span.loadingText {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 0;
+    transform: translateY(-50%) translateX(-50%);
+    margin: auto;
+    opacity: 0;
+    color: #fff;
+    font-size: var.$font-size-3xl;
+
+    &::after {
+      content: '...';
+      z-index: 0;
+      position: absolute;
+      animation: loading 3s infinite;
+    }
+  }
+}
+
+@keyframes loading {
+  0% {
+    content: '';
+  }
+
+  20% {
+    content: '';
+  }
+
+  40% {
+    content: '.';
+  }
+
+  60% {
+    content: '..';
+  }
+
+  80% {
+    content: '...';
+  }
+
+  100% {
+    content: '...';
   }
 }

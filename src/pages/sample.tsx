@@ -8,8 +8,8 @@ import Load from 'src/components/common/Load';
 
 export default function Sam(): JSX.Element {
   return (
-    <div>
+    <>
       <Load />
-    </div>
+    </>
   );
 }
