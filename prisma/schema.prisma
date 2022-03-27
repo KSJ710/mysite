@@ -167,4 +167,16 @@ model Prefecture {
 }
 
 
+model SampleList {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
+  imagePath String   @map("image_path")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  @@map("sample_list")
+}
+
+
 
