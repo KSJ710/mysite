@@ -8,7 +8,6 @@ export default async function handler(
   switch (req.method) {
     case 'GET':
       const prefectures: Prefecture[] = await prisma.prefecture.findMany();
-      prisma.$disconnect();
       res.status(200).json(prefectures);
       break;
 

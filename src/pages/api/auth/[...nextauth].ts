@@ -65,7 +65,6 @@ export default NextAuth({
         try {
           const { email, password } = credentials;
           const member = await checkUser(email, password);
-          prisma.$disconnect();
 
           if (!member) return null;
           return { name: member.name, email: member.email };
@@ -139,7 +138,6 @@ export default NextAuth({
 async function checkUser(email, password) {
   //... fetch user from a db etc.
   const member = await prisma.member.findUnique({ where: { email: email } });
-  prisma.$disconnect();
   const match = await bcrypt.compare(password, member.password);
 
   if (match && member.confirmStatus === '1') {

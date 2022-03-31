@@ -15,11 +15,9 @@ export default async function handler(
         let member = await prisma.member.findUnique({
           where: { email: req.query.email },
         });
-        prisma.$disconnect();
         res.status(200).json(member);
         break;
       }
-      prisma.$disconnect();
       res.status(200).json({ message: 'GET_INDEX' });
       break;
 
