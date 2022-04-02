@@ -11,6 +11,7 @@
     }
     input[type='submit'] {
       @include but.submit_button;
+      margin-top: 30px;
     }
     input[type='submit']:hover {
       @include but.submit_button_hover;
