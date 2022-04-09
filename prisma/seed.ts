@@ -3,6 +3,7 @@ import colors from './seed_data/colors';
 import fontFamilies from './seed_data/font_families';
 import headParts from './seed_data/head_parts';
 import footParts from './seed_data/foot_parts';
+import sampleList from './seed_data/sample_list';
 import axios from 'axios';
 
 const prisma = new PrismaClient();
@@ -12,6 +13,8 @@ async function main() {
   await prisma.fontFamily.createMany({ data: fontFamilies });
   await prisma.headPart.createMany({ data: headParts });
   await prisma.footPart.createMany({ data: footParts });
+  await prisma.footPart.createMany({ data: footParts });
+  await prisma.sampleList.createMany({ data: sampleList });
 
   const [prefectures, cities] = await axios
     .get('https://geolonia.github.io/japanese-addresses/api/ja.json')

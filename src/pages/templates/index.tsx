@@ -5,7 +5,7 @@ import {
   currentLayoutPart,
   currentTargetState,
   editToolsDisplayState,
-} from 'src/states/atoms/tamplate_atoms';
+} from 'src/atoms/tamplate_atoms';
 import Base from 'src/components/templates/layout/Base';
 import EditTools from 'src/components/templates/edit_tools/EditTools';
 

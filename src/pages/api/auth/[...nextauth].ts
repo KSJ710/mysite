@@ -40,7 +40,6 @@ export default NextAuth({
   },
   pages: {
     signIn: '/auth/credentials-signin',
-    error: '/auth/credentials-signin?error=true',
   },
   providers: [
     CredentialsProvider({
@@ -51,8 +50,8 @@ export default NextAuth({
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        username: { label: 'Username', type: 'text', placeholder: '' },
-        password: { label: 'Password', type: 'password' },
+        email: { label: 'email', type: 'text', placeholder: '' },
+        password: { label: 'password', type: 'password' },
       },
       async authorize(credentials, req) {
         // You need to provide your own logic here that takes the credentials
@@ -63,13 +62,16 @@ export default NextAuth({
         // (i.e., the request IP address)
 
         // If no error and we have user data, return it
-        const member = await checkUser(req.body.email, req.body.password);
-        if (member) {
-          return { name: member.name };
-        }
+        try {
+          const { email, password } = credentials;
+          const member = await checkUser(email, password);
 
-        // Return null if user data could not be retrieved
-        return null;
+          if (!member) return null;
+          return { name: member.name, email: member.email };
+        } catch (error) {
+          console.log(error);
+          return null;
+        }
       },
     }),
     EmailProvider({
@@ -82,7 +84,11 @@ export default NextAuth({
         },
       },
       from: process.env.EMAIL_FROM,
-      async sendVerificationRequest({ identifier: email, url, provider: { server, from } }) {
+      async sendVerificationRequest({
+        identifier: email,
+        url,
+        provider: { server, from },
+      }) {
         const { host } = new URL(url);
         const transport = nodemailer.createTransport(server);
         await transport.sendMail({
@@ -90,7 +96,7 @@ export default NextAuth({
           from,
           subject: `ログインのご案内`,
           text: text({ url, host }),
-          html: html({ url, host, email }),
+          html: html({ url, host }),
         });
       },
     }),
@@ -132,10 +138,9 @@ export default NextAuth({
 async function checkUser(email, password) {
   //... fetch user from a db etc.
   const member = await prisma.member.findUnique({ where: { email: email } });
-  prisma.$disconnect();
   const match = await bcrypt.compare(password, member.password);
 
-  if (match) {
+  if (match && member.confirmStatus === '1') {
     return member;
   }
   return null;

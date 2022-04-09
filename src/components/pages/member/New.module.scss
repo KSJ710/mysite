@@ -1,0 +1,20 @@
+@use '/src/styles/_button' as but;
+@use '/src/styles/variables' as var;
+
+.base {
+  form {
+    label:not(label:first-of-type) {
+      margin-top: 50px;
+    }
+    label {
+      display: block;
+    }
+    input[type='submit'] {
+      @include but.submit_button;
+      margin-top: 30px;
+    }
+    input[type='submit']:hover {
+      @include but.submit_button_hover;
+    }
+  }
+}

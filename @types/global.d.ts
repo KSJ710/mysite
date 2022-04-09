@@ -5,6 +5,16 @@ type Color = {
   kanaName: string;
 };
 
+type Prefecture = {
+  id: number;
+  name: string;
+};
+
+type City = {
+  id: number;
+  name: string;
+};
+
 type FontFamily = {
   id: number;
   name: string;

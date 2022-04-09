@@ -2,7 +2,7 @@
 import { useRecoilValue } from 'recoil';
 import useSWR from 'swr';
 // atom
-import { currentTargetState } from 'src/states/atoms/tamplate_atoms';
+import { currentTargetState } from 'src/atoms/tamplate_atoms';
 // helper
 import { fetcher } from 'src/helper/common';
 // css

@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import Load from 'src/components/common/Load';
 
-export default function Index(): JSX.Element {
+export default function Sam(): JSX.Element {
   const router = useRouter();
   useEffect(() => {
     router.push('/home');
   });
-
-  return <div>Loading...</div>;
+  return <Load />;
 }

@@ -1,0 +1,46 @@
+@use '/src/styles/_button' as but;
+@use '/src/styles/_variables' as var;
+
+.base {
+  font-size: 14px;
+  h1 {
+    font-size: 20px;
+    text-align: center;
+  }
+  h2 {
+    font-size: 16px;
+  }
+  .guidAccount {
+    border: 1px solid var.$main-color;
+    border-radius: 20px;
+    padding: 20px 30px;
+
+    p {
+      margin-bottom: 8px;
+    }
+
+    button {
+      @include but.submit_button;
+      width: 100%;
+      border: 1px solid var.$main-color;
+      border-radius: 20px;
+      padding: 2px 5px;
+      font-size: var.$font-size-md;
+
+      &:hover {
+        @include but.submit_button_hover;
+        border: 1px solid var.$main-color;
+        border-radius: 10%;
+        padding: 2px 5px;
+        border-radius: 20px;
+        font-size: var.$font-size-md;
+      }
+    }
+  }
+
+  .sampleList {
+    border: 1px solid var.$main-color;
+    border-radius: 20px;
+    padding: 20px 30px;
+  }
+}
