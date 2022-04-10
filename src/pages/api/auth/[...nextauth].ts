@@ -3,7 +3,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import EmailProvider from 'next-auth/providers/email';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { PrismaClient } from '@prisma/client';
-import bcrypt from 'bcrypt';
+// import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
 import { html, text } from 'src/mails/auth';
 

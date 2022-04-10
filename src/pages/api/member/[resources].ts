@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from 'lib/prisma';
-import bcrypt from 'bcrypt';
+// import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
 import { getCsrfToken } from 'next-auth/react';
 import { html, text } from 'src/mails/signup';
