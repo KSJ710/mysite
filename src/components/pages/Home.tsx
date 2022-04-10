@@ -4,7 +4,6 @@ import Link from 'next/link';
 import styles from './Home.module.scss';
 
 export default function Home(): JSX.Element {
-  const sampleListElement = useSampleListElement();
 
   return (
     <div className={styles.base}>
@@ -12,9 +11,15 @@ export default function Home(): JSX.Element {
         <h2 className="mb-[40px]">見出し</h2>
       </section>
 
-      <section className={styles.sampleList}>
+      <section className={`${styles.useway} mb-[40px]`}>
+        <h2 className="mb-[40px]">見出し</h2>
         <h2 className="mb-[30px]">使い方</h2>
-        <div>aaa</div>
+        <div></div>
+      </section>
+
+      <section className={`${styles.list} mb-[40px]`}>
+        <h2 className="mb-[30px]">使い方</h2>
+        <div></div>
       </section>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import Home from 'src/components/pages/Home_bk';
+import Home from 'src/components/pages/Home';
 import MemberNew from 'src/components/pages/member/New';
 import Component404 from 'src/components/pages/Component404';
 
