@@ -2,7 +2,10 @@
 import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 // atom
-import { currentLayoutPart, editToolsDisplayState } from 'src/atoms/tamplate_atoms';
+import {
+  currentLayoutPart,
+  editToolsDisplayState,
+} from 'src/atoms/tamplate_atoms';
 // component
 import ChangeBackgroundColor from 'src/components/templates/edit_tools/ChangeBackgroundColor';
 import ChangeFontFamily from 'src/components/templates/edit_tools/ChangeFontFamily';
@@ -12,9 +15,12 @@ import ChangeFootPart from 'src/components/templates/edit_tools/ChangeFootPart';
 import styles from './EditTools.module.scss';
 
 const EditToolBox = (): JSX.Element => {
-  const [editToolDisplay, setEditToolDisplay] = useRecoilState(editToolsDisplayState);
+  const [editToolDisplay, setEditToolDisplay] = useRecoilState(
+    editToolsDisplayState
+  );
   const [bgColorDisplay, setBgColorDisplay] = useState<classDisplay>('none');
-  const [fontFamilyDisplay, setFontFamilyDisplay] = useState<classDisplay>('none');
+  const [fontFamilyDisplay, setFontFamilyDisplay] =
+    useState<classDisplay>('none');
   const [headPartDisplay, setHeadPartDisplay] = useState<classDisplay>('none');
   const [footPartDisplay, setFootPartDisplay] = useState<classDisplay>('none');
   const curtLayPart = useRecoilValue(currentLayoutPart);
@@ -53,7 +59,11 @@ const EditToolBox = (): JSX.Element => {
 
   return (
     <>
-      <div style={{ display: editToolDisplay }} className={styles.base} onClick={hiddenEditTools}>
+      <div
+        style={{ display: editToolDisplay }}
+        className={styles.base}
+        onClick={hiddenEditTools}
+      >
         <div>
           <p>変更したい項目を選んで下さい</p>
           <ul>
@@ -64,10 +74,22 @@ const EditToolBox = (): JSX.Element => {
         </div>
       </div>
       {/* editToolで選択した項目に対して表示がされる */}
-      <ChangeBackgroundColor display={bgColorDisplay} setDisplay={setBgColorDisplay} />
-      <ChangeFontFamily display={fontFamilyDisplay} setDisplay={setFontFamilyDisplay} />
-      <ChangeHeadPart display={headPartDisplay} setDisplay={setHeadPartDisplay} />
-      <ChangeFootPart display={footPartDisplay} setDisplay={setFootPartDisplay} />
+      <ChangeBackgroundColor
+        display={bgColorDisplay}
+        setDisplay={setBgColorDisplay}
+      />
+      <ChangeFontFamily
+        display={fontFamilyDisplay}
+        setDisplay={setFontFamilyDisplay}
+      />
+      <ChangeHeadPart
+        display={headPartDisplay}
+        setDisplay={setHeadPartDisplay}
+      />
+      <ChangeFootPart
+        display={footPartDisplay}
+        setDisplay={setFootPartDisplay}
+      />
     </>
   );
 };

@@ -38,7 +38,10 @@ const ChangeBackgroundColor = (props: Props): JSX.Element => {
   } else {
     const colorList = data.map((color: Color) => (
       <li
-        style={{ backgroundColor: color.colorCode, color: specifiedColorNameColor(color.id) }}
+        style={{
+          backgroundColor: color.colorCode,
+          color: specifiedColorNameColor(color.id),
+        }}
         key={color.id}
         className={styles.tool_list}
       >
@@ -50,7 +53,11 @@ const ChangeBackgroundColor = (props: Props): JSX.Element => {
       </li>
     ));
     return (
-      <div style={{ display: props.display }} className={styles.base} onClick={hiddenBgColor}>
+      <div
+        style={{ display: props.display }}
+        className={styles.base}
+        onClick={hiddenBgColor}
+      >
         <ul className={styles.tool_bg}>{colorList}</ul>
       </div>
     );

@@ -1,7 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import prisma from 'lib/prisma';
 
-export default async function Sample(req: NextApiRequest, res: NextApiResponse) {
+export default async function Sample(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   switch (req.method) {
     case 'GET':
       if (req.query.index === 'show') {

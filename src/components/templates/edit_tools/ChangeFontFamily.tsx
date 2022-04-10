@@ -35,14 +35,22 @@ const ChangeFontFamily = (props: Props): JSX.Element => {
     return <div style={{ display: props.display }}>loading...</div>;
   } else {
     const fontFamilyList = data.map((fontFamily: FontFamily) => (
-      <li style={{ fontFamily: fontFamily.style }} key={fontFamily.id} className={styles.tool_list}>
+      <li
+        style={{ fontFamily: fontFamily.style }}
+        key={fontFamily.id}
+        className={styles.tool_list}
+      >
         <button value={fontFamily.style} onClick={changeBgColer}></button>
         <div className={styles.label}>{fontFamily.id}</div>
         {fontFamily.name}
       </li>
     ));
     return (
-      <div style={{ display: props.display }} className={styles.base} onClick={hiddenFontFamily}>
+      <div
+        style={{ display: props.display }}
+        className={styles.base}
+        onClick={hiddenFontFamily}
+      >
         <ul className={styles.tool_bg}>{fontFamilyList}</ul>
       </div>
     );

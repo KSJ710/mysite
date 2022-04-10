@@ -8,13 +8,24 @@ export default function Home(): JSX.Element {
 
   return (
     <div className={styles.base}>
+      <h1 className="mb-[40px]">
+        <b>React</b>で作成された
+        <br />
+        シングルサイトアプリケーションです
+      </h1>
       <section className={`${styles.guidAccount} mb-[40px]`}>
-        <h2 className="mb-[40px]">見出し</h2>
+        <h2>ご案内</h2>
+        <p>アカウントを作成するとアプリの詳細を確認することができます。</p>
+        <button className=" mb-[30px]">アカウント作成</button>
+        <p>
+          アカウント登録しなくても既存アカウントで ログインする事が可能です。
+        </p>
+        <button>ログイン</button>
       </section>
 
       <section className={styles.sampleList}>
-        <h2 className="mb-[30px]">使い方</h2>
-        <div>aaa</div>
+        <h2 className="mb-[30px]">サンプルリスト</h2>
+        <ul className="flex flex-wrap">{sampleListElement}</ul>
       </section>
     </div>
   );

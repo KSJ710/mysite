@@ -17,7 +17,9 @@ const Head_2 = (): JSX.Element => {
   const [toggleDisplay, setToggleDisplay] = useState<classDisplay>('none');
 
   const addActiveClass = () => {
-    toggleDisplay == 'none' ? setToggleDisplay('flex') : setToggleDisplay('none');
+    toggleDisplay == 'none'
+      ? setToggleDisplay('flex')
+      : setToggleDisplay('none');
   };
 
   return (
