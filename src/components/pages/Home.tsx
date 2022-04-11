@@ -10,6 +10,9 @@ export default function Home(): JSX.Element {
     <div className={styles.base}>
       <section className={`${styles.guidAccount} mb-[40px]`}>
         <h2 className="mb-[40px]">見出し</h2>
+        <Link href="/templates">
+          <a>開始</a>
+        </Link>
       </section>
 
       <section className={styles.sampleList}>
