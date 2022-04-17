@@ -2,6 +2,12 @@ import React, { useEffect } from 'react';
 import styles from './Content_1.module.scss';
 
 export default function Content_1(): JSX.Element {
+  useSetHeight();
+
+  return <div className={`${styles.base} _track_content_1`}></div>;
+}
+
+function useSetHeight() {
   // contentの高さをheaderの高さ分引いて設定
   useEffect(() => {
     const header_height: number =
@@ -14,6 +20,4 @@ export default function Content_1(): JSX.Element {
     ) as HTMLCollectionOf<HTMLElement>;
     contentList[0].style.height = content_height;
   });
-
-  return <div className={`${styles.base} _track_content_1`}></div>;
 }
