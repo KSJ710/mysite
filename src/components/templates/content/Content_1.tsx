@@ -1,10 +1,39 @@
 import React, { useEffect } from 'react';
+import { Navigation, Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import styles from './Content_1.module.scss';
 
 export default function Content_1(): JSX.Element {
   useSetHeight();
 
-  return <div className={`${styles.base} _track_content_1`}></div>;
+  return (
+    <div className={styles.slide_container}>
+      <Swiper
+        modules={[Navigation, Pagination]}
+        navigation
+        pagination={{ clickable: true }}
+        autoHeight={true}
+        slidesPerView="auto"
+        loop={true}
+      >
+        <SwiperSlide>
+          <div className={`${styles.slide} _track_content_1`}>000000</div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className={`${styles.slide} _track_content_1`}>11111111</div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className={`${styles.slide} _track_content_1`}></div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className={`${styles.slide} _track_content_1`}></div>
+        </SwiperSlide>
+      </Swiper>
+    </div>
+  );
 }
 
 function useSetHeight() {
@@ -18,6 +47,9 @@ function useSetHeight() {
     const contentList = document.getElementsByClassName(
       '_track_content_1'
     ) as HTMLCollectionOf<HTMLElement>;
-    contentList[0].style.height = content_height;
+    console.log(contentList.length);
+    for (let step = 0; step < contentList.length; step++) {
+      contentList[step].style.height = content_height;
+    }
   });
 }

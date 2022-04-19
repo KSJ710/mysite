@@ -1,7 +1,16 @@
-.base {
+.slide_container {
+  --swiper-navigation-color: #ccc;
+  --swiper-pagination-color: #ccc;
+}
+
+.slide {
   width: 100%;
   background-image: url('/images/tamplate/content/content_1.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: left 30% top 90%;
+}
+
+.swiper-button-next {
+  color: red;
 }
