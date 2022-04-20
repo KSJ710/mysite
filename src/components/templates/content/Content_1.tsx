@@ -20,10 +20,10 @@ export default function Content_1(): JSX.Element {
         loop={true}
       >
         <SwiperSlide>
-          <div className={`${styles.slide} _track_content_1`}>000000</div>
+          <div className={`${styles.slide} _track_content_1`}></div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className={`${styles.slide} _track_content_1`}>11111111</div>
+          <div className={`${styles.slide} _track_content_1`}></div>
         </SwiperSlide>
         <SwiperSlide>
           <div className={`${styles.slide} _track_content_1`}></div>
