@@ -5,10 +5,7 @@ import nodemailer from 'nodemailer';
 import { getCsrfToken } from 'next-auth/react';
 import { html, text } from 'src/mails/signup';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'GET':
       if (req.query.resources === 'show') {

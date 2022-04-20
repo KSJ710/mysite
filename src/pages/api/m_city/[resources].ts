@@ -2,10 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from 'lib/prisma';
 import { useRouter } from 'next/router';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'GET':
       if (req.query.prefectureId) {

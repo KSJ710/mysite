@@ -17,9 +17,7 @@ const Head_1 = (): JSX.Element => {
 
   // SpMenuの表示非表示を切り替える
   const addActiveClass = () => {
-    toggleDisplay == 'none'
-      ? setToggleDisplay('flex')
-      : setToggleDisplay('none');
+    toggleDisplay == 'none' ? setToggleDisplay('flex') : setToggleDisplay('none');
   };
 
   return (
@@ -31,11 +29,7 @@ const Head_1 = (): JSX.Element => {
           <p>ロゴロゴ</p>
         </h1>
         <Menu />
-        <FontAwesomeIcon
-          className="hidden md:block"
-          icon="user-circle"
-          size="3x"
-        />
+        <FontAwesomeIcon className="hidden md:block" icon="user-circle" size="3x" />
         <HambugButton onClick={addActiveClass} />
       </nav>
     </>

@@ -42,11 +42,7 @@ const ChangefootPart = (props: Props): JSX.Element => {
       </li>
     ));
     return (
-      <div
-        style={{ display: props.display }}
-        className={styles.base}
-        onClick={hiddenfootPart}
-      >
+      <div style={{ display: props.display }} className={styles.base} onClick={hiddenfootPart}>
         <ul className={styles.tool_bg}>{footPartList}</ul>
       </div>
     );

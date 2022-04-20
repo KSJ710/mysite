@@ -20,12 +20,7 @@ function useTemplateElement() {
       <Link href={`sample-list/${sample.id}`}>
         <a>
           <div>{sample.title}</div>
-          <Image
-            src={`/images/home/sample_list/${sample.image_path}`}
-            alt="サムネイル"
-            width={100}
-            height={100}
-          />
+          <Image src={`/images/home/sample_list/${sample.image_path}`} alt="サムネイル" width={100} height={100} />
         </a>
       </Link>
     </li>

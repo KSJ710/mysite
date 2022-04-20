@@ -1,11 +1,7 @@
 import React from 'react';
 import { useSetRecoilState } from 'recoil';
 // atom
-import {
-  currentLayoutPart,
-  currentTargetState,
-  editToolsDisplayState,
-} from 'src/atoms/tamplate_atoms';
+import { currentLayoutPart, currentTargetState, editToolsDisplayState } from 'src/atoms/tamplate_atoms';
 import Base from 'src/components/templates/layout/Base';
 import EditTools from 'src/components/templates/edit_tools/EditTools';
 
@@ -15,32 +11,16 @@ export default function Index(): JSX.Element {
   const setEditToolsDisplay = useSetRecoilState(editToolsDisplayState);
 
   return (
-    <ToggleEditTools.Provider
-      value={(e) =>
-        toggleEditTools(
-          e,
-          setCurrentTarget,
-          setCurtLayPart,
-          setEditToolsDisplay
-        )
-      }
-    >
+    <ToggleEditTools.Provider value={(e) => toggleEditTools(e, setCurrentTarget, setCurtLayPart, setEditToolsDisplay)}>
       <Base />
       <EditTools />
     </ToggleEditTools.Provider>
   );
 }
 
-export const ToggleEditTools = React.createContext(
-  {} as (event: React.MouseEvent<HTMLElement>) => void
-);
+export const ToggleEditTools = React.createContext({} as (event: React.MouseEvent<HTMLElement>) => void);
 
-const toggleEditTools = (
-  e,
-  setCurrentTarget,
-  setCurtLayPart,
-  setEditToolsDisplay
-) => {
+const toggleEditTools = (e, setCurrentTarget, setCurtLayPart, setEditToolsDisplay) => {
   e.stopPropagation();
   // 編集するelementを設定する
   setCurrentTarget(e.currentTarget);

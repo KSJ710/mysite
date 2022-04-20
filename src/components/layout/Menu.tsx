@@ -13,9 +13,7 @@ export default function Menu(): JSX.Element {
 
   // Menuの表示非表示を切り替える
   const toggleDisp = () => {
-    toggleDisplay == 'none'
-      ? setToggleDisplay('flex')
-      : setToggleDisplay('none');
+    toggleDisplay == 'none' ? setToggleDisplay('flex') : setToggleDisplay('none');
   };
 
   return (
@@ -90,10 +88,5 @@ function MenuButton(props) {
   } else {
     loginState = '#f7fcfe';
   }
-  return (
-    <button
-      style={{ backgroundColor: loginState }}
-      onClick={toggleDisp}
-    ></button>
-  );
+  return <button style={{ backgroundColor: loginState }} onClick={toggleDisp}></button>;
 }

@@ -42,11 +42,7 @@ const ChangeHeadPart = (props: Props): JSX.Element => {
       </li>
     ));
     return (
-      <div
-        style={{ display: props.display }}
-        className={styles.base}
-        onClick={hiddenHeadPart}
-      >
+      <div style={{ display: props.display }} className={styles.base} onClick={hiddenHeadPart}>
         <ul className={styles.tool_bg}>{headPartList}</ul>
       </div>
     );
