@@ -1,4 +1,3 @@
-/* eslint-disable tailwindcss/no-custom-classname */
 import { useRecoilValue } from 'recoil';
 import { useFont } from 'src/helper/custom_hook/m_font';
 // atom

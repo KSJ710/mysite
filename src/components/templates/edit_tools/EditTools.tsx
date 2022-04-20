@@ -1,4 +1,3 @@
-/* eslint-disable tailwindcss/no-custom-classname */
 import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 // atom

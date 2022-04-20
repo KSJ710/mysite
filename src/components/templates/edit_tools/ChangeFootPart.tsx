@@ -1,4 +1,3 @@
-/* eslint-disable tailwindcss/no-custom-classname */
 import { useSetRecoilState } from 'recoil';
 import useSWR from 'swr';
 // atom
