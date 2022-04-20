@@ -12,8 +12,6 @@ type Props = {
 };
 
 export default function ChangeBackgroundColor(props: Props): JSX.Element {
-  const currentTarget = useRecoilValue(currentTargetState);
-
   function hiddenBgColor(e) {
     e.stopPropagation();
     props.setDisplay('none');
@@ -22,14 +20,15 @@ export default function ChangeBackgroundColor(props: Props): JSX.Element {
   return (
     <div style={{ display: props.display }} className={styles.base} onClick={hiddenBgColor}>
       <ul className={styles.tool_bg}>
-        <FetchColor {...props} {...currentTarget} />
+        <FetchColor {...props} />
       </ul>
     </div>
   );
 }
 
 // カラーデータフェッチして一覧に表示
-function FetchColor(props, currentTarget) {
+function FetchColor(props) {
+  const currentTarget = useRecoilValue(currentTargetState);
   // 設定されているエレメントの背景カラーを変える
   const changeBgColer = (e) => {
     e.stopPropagation();
