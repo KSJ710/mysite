@@ -1,10 +1,8 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 import { useRecoilValue } from 'recoil';
-import useSWR from 'swr';
+import { useFont } from 'src/helper/custom_hook/m_font';
 // atom
 import { currentTargetState } from 'src/atoms/tamplate_atoms';
-// helper
-import { fetcher } from 'src/helper/common';
 // css
 import styles from './ChangeFontFamily.module.scss';
 
@@ -13,40 +11,38 @@ type Props = {
   setDisplay: React.Dispatch<React.SetStateAction<classDisplay>>;
 };
 
-const ChangeFontFamily = (props: Props): JSX.Element => {
-  const currentTarget = useRecoilValue(currentTargetState);
-
+export default function ChangeFontFamily(props: Props): JSX.Element {
   const hiddenFontFamily = (e) => {
     e.stopPropagation();
     props.setDisplay('none');
   };
 
-  const changeBgColer = (e) => {
+  return (
+    <div style={{ display: props.display }} className={styles.base} onClick={hiddenFontFamily}>
+      <ul className={styles.tool_bg}>
+        <FetchFontFamily {...props} />
+      </ul>
+    </div>
+  );
+}
+
+function FetchFontFamily(props): JSX.Element {
+  const currentTarget = useRecoilValue(currentTargetState);
+
+  const changeFontFamily = (e) => {
     e.stopPropagation();
     currentTarget.style.fontFamily = e.target.value;
   };
 
-  const { data, error } = useSWR('/api/templates/font_family', fetcher);
-  if (error) {
-    return <div style={{ display: props.display }}>error</div>;
-  }
+  const { fonts, isLoading, isError } = useFont();
+  if (isError) return <div style={{ display: props.display }}>error</div>;
+  if (isLoading) return <div style={{ display: props.display }}>loading...</div>;
 
-  if (!data) {
-    return <div style={{ display: props.display }}>loading...</div>;
-  } else {
-    const fontFamilyList = data.map((fontFamily: FontFamily) => (
-      <li style={{ fontFamily: fontFamily.style }} key={fontFamily.id} className={styles.tool_list}>
-        <button value={fontFamily.style} onClick={changeBgColer}></button>
-        <div className={styles.label}>{fontFamily.id}</div>
-        {fontFamily.name}
-      </li>
-    ));
-    return (
-      <div style={{ display: props.display }} className={styles.base} onClick={hiddenFontFamily}>
-        <ul className={styles.tool_bg}>{fontFamilyList}</ul>
-      </div>
-    );
-  }
-};
-
-export default ChangeFontFamily;
+  return fonts.map((fontFamily: FontFamily) => (
+    <li style={{ fontFamily: fontFamily.style }} key={fontFamily.id} className={styles.tool_list}>
+      <button value={fontFamily.style} onClick={changeFontFamily}></button>
+      <div className={styles.label}>{fontFamily.id}</div>
+      {fontFamily.name}
+    </li>
+  ));
+}
