@@ -14,10 +14,10 @@ type Props = {
 export default function ChangeBackgroundColor(props: Props): JSX.Element {
   const currentTarget = useRecoilValue(currentTargetState);
 
-  const hiddenBgColor = (e) => {
+  function hiddenBgColor(e) {
     e.stopPropagation();
     props.setDisplay('none');
-  };
+  }
 
   return (
     <div style={{ display: props.display }} className={styles.base} onClick={hiddenBgColor}>
