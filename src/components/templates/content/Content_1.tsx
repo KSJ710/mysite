@@ -44,7 +44,6 @@ function useSetHeight() {
     /* getElementsByClassNameはHTMLCollectionOf<Element>を返し、
        Elementはstyleを持たないので型変換 */
     const contentList = document.getElementsByClassName('_track_content_1') as HTMLCollectionOf<HTMLElement>;
-    console.log(contentList.length);
     for (let step = 0; step < contentList.length; step++) {
       contentList[step].style.height = content_height;
     }
