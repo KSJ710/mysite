@@ -1,10 +1,8 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 import { useSetRecoilState } from 'recoil';
-import useSWR from 'swr';
+import { useHead } from 'src/helper/custom_hook/m_head';
 // atom
 import { tplHeadNumberState } from 'src/atoms/tamplate_atoms';
-// helper
-import { fetcher } from 'src/helper/common';
 // css
 import styles from './ChangeHeadPart.module.scss';
 
@@ -13,7 +11,22 @@ type Props = {
   setDisplay: React.Dispatch<React.SetStateAction<classDisplay>>;
 };
 
-const ChangeHeadPart = (props: Props): JSX.Element => {
+export default function ChangeHeadPart(props: Props): JSX.Element {
+  //背景カラーエディタを非表示にする
+  const hiddenHeadPart = () => {
+    props.setDisplay('none');
+  };
+
+  return (
+    <div style={{ display: props.display }} className={styles.base} onClick={hiddenHeadPart}>
+      <ul className={styles.tool_bg}>
+        <FetchHead {...props} />
+      </ul>
+    </div>
+  );
+}
+
+function FetchHead(props) {
   const setHeadNum = useSetRecoilState(tplHeadNumberState);
 
   //Head部分のパーツを切り替える
@@ -22,31 +35,15 @@ const ChangeHeadPart = (props: Props): JSX.Element => {
     setHeadNum(e.target.value);
   };
 
-  //背景カラーエディタを非表示にする
-  const hiddenHeadPart = () => {
-    props.setDisplay('none');
-  };
+  const { heads, isLoading, isError } = useHead();
+  if (isError) return <div style={{ display: props.display }}>error</div>;
+  if (isLoading) return <div style={{ display: props.display }}>loading...</div>;
 
-  const { data, error } = useSWR('/api/templates/head_part', fetcher);
-  if (error) {
-    return <div>error</div>;
-  }
-  if (!data) {
-    return <div>loading...</div>;
-  } else {
-    const headPartList = data.map((headPart: LayoutParts) => (
-      <li key={headPart.id} className={styles.tool_list}>
-        <button value={headPart.id} onClick={changeHeadPart}></button>
-        <div className={styles.label}>{headPart.id}</div>
-        {headPart.name}
-      </li>
-    ));
-    return (
-      <div style={{ display: props.display }} className={styles.base} onClick={hiddenHeadPart}>
-        <ul className={styles.tool_bg}>{headPartList}</ul>
-      </div>
-    );
-  }
-};
-
-export default ChangeHeadPart;
+  return heads.map((headPart: LayoutParts) => (
+    <li key={headPart.id} className={styles.tool_list}>
+      <button value={headPart.id} onClick={changeHeadPart}></button>
+      <div className={styles.label}>{headPart.id}</div>
+      {headPart.name}
+    </li>
+  ));
+}
