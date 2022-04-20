@@ -2,6 +2,8 @@
 
 .base {
   @include common.tool_base;
+  z-index: 99999;
+  background-color: rgb(0, 0, 0, 0.4);
 
   ul.tool_bg {
     @include common.tool_bg;
