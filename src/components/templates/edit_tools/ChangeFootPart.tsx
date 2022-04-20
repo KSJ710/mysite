@@ -19,13 +19,13 @@ export default function ChangefootPart(props: Props): JSX.Element {
   return (
     <div style={{ display: props.display }} className={styles.base} onClick={hiddenfootPart}>
       <ul className={styles.tool_bg}>
-        <FetchFoot />
+        <FetchFoot {...props} />
       </ul>
     </div>
   );
 }
 
-function FetchFoot() {
+function FetchFoot(props) {
   const setFootNum = useSetRecoilState(tplFootNumberState);
   //Head部分のパーツを切り替える
   const changeFootPart = (e) => {
@@ -34,8 +34,8 @@ function FetchFoot() {
   };
 
   const { foots, isLoading, isError } = useFoot();
-  if (isError) return <div>error</div>;
-  if (isLoading) return <div>loading...</div>;
+  if (isError) return <div style={{ display: props.display }}>error</div>;
+  if (isLoading) return <div style={{ display: props.display }}>loading...</div>;
 
   return foots.map((footPart: LayoutParts) => (
     <li key={footPart.id} className={styles.tool_list}>
