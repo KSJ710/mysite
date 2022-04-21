@@ -12,7 +12,7 @@ import Logo from '../svg/Logo_1';
 import styles from './Head_1.module.scss';
 
 const Head_1 = (): JSX.Element => {
-  const tET: (event) => void = useContext(ToggleEditTools);
+  const tET: (e) => void = useContext(ToggleEditTools);
   const [toggleDisplay, setToggleDisplay] = useState<classDisplay>('none');
 
   // SpMenuの表示非表示を切り替える
