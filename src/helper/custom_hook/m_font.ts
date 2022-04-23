@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { fetcher } from 'src/helper/common';
 
-export function useFont() {
+export function useFetchFontFamilies() {
   const { data, error } = useSWR('/api/templates/font_family', fetcher);
 
   return {
