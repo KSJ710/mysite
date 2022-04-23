@@ -1,5 +1,4 @@
 import { useRecoilValue } from 'recoil';
-import { useFont } from 'src/helper/custom_hook/m_font';
 // atom
 import { currentTargetState } from 'src/atoms/tamplate_atoms';
 // css
@@ -8,6 +7,7 @@ import styles from './ChangeFontFamily.module.scss';
 type Props = {
   display: classDisplay;
   setDisplay: React.Dispatch<React.SetStateAction<classDisplay>>;
+  fetchData: () => JSX.Element;
 };
 
 export default function ChangeFontFamily(props: Props): JSX.Element {
@@ -33,15 +33,15 @@ function FetchFontFamily(props): JSX.Element {
     currentTarget.style.fontFamily = e.target.value;
   };
 
-  const { fonts, isLoading, isError } = useFont();
+  const { data, isLoading, isError } = props.fetchData();
   if (isError) return <div style={{ display: props.display }}>error</div>;
   if (isLoading) return <div style={{ display: props.display }}>loading...</div>;
 
-  return fonts.map((fontFamily: FontFamily) => (
-    <li style={{ fontFamily: fontFamily.style }} key={fontFamily.id} className={styles.tool_list}>
-      <button value={fontFamily.style} onClick={changeFontFamily}></button>
-      <div className={styles.label}>{fontFamily.id}</div>
-      {fontFamily.name}
+  return data.map((editTool: Color | Prefecture | City | FontFamily | LayoutParts) => (
+    <li style={{ fontFamily: editTool.style }} key={editTool.id} className={styles.tool_list}>
+      <button value={editTool.style} onClick={changeeditTool}></button>
+      <div className={styles.label}>{editTool.id}</div>
+      {editTool.name}
     </li>
   ));
 }

@@ -1,7 +1,7 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 import React, { useContext, useState } from 'react';
 // context
-import { ToggleEditTools } from 'src/pages/templates/index';
+import { ToggleEditTools } from 'src/pages/templates/template';
 // component
 import Menu from 'src/components/templates/menu/Menu';
 import SpMenu from 'src/components/templates/menu/SpMenu';
@@ -17,9 +17,7 @@ const Head_2 = (): JSX.Element => {
   const [toggleDisplay, setToggleDisplay] = useState<classDisplay>('none');
 
   const addActiveClass = () => {
-    toggleDisplay == 'none'
-      ? setToggleDisplay('flex')
-      : setToggleDisplay('none');
+    toggleDisplay == 'none' ? setToggleDisplay('flex') : setToggleDisplay('none');
   };
 
   return (
@@ -33,11 +31,7 @@ const Head_2 = (): JSX.Element => {
           </h1>
           <Menu />
         </div>
-        <FontAwesomeIcon
-          className="hidden absolute right-1.5 md:block"
-          icon="user-circle"
-          size="3x"
-        />
+        <FontAwesomeIcon className="hidden absolute right-1.5 md:block" icon="user-circle" size="3x" />
         <HambugButton onClick={addActiveClass} />
       </nav>
     </>

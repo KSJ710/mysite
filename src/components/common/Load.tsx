@@ -26,10 +26,7 @@ export default function Load(): JSX.Element {
   return (
     <div className={styles.base}>
       {mapBoxs({ ...BoxsProps })}
-      <motion.span
-        className={styles.loadingText}
-        animate={{ opacity: 1, transition: { duration: 2 } }}
-      >
+      <motion.span className={styles.loadingText} animate={{ opacity: 1, transition: { duration: 2 } }}>
         loading
       </motion.span>
     </div>
@@ -37,12 +34,7 @@ export default function Load(): JSX.Element {
 }
 
 // アニメーションセット
-function useEffectBoxAnimation({
-  boxControls,
-  countSplitDisplay,
-  sestBoxWidthState,
-  sestBoxHeightState,
-}) {
+function useEffectBoxAnimation({ boxControls, countSplitDisplay, sestBoxWidthState, sestBoxHeightState }) {
   useEffect(() => {
     const boxWidth = document.body.clientWidth / countSplitDisplay;
     const boxHeight = document.documentElement.clientHeight / countSplitDisplay;
@@ -67,21 +59,13 @@ function useEffectBoxAnimation({
   });
 }
 
-function mapBoxs({
-  qtyBox,
-  countSplitDisplay,
-  boxControls,
-  boxWidthState,
-  boxHeightState,
-}) {
+function mapBoxs({ qtyBox, countSplitDisplay, boxControls, boxWidthState, boxHeightState }) {
   return [...Array(qtyBox)].map((v, i) => (
     <motion.div
       key={i}
       style={{
         top: boxHeightState * Math.floor(i / countSplitDisplay),
-        left:
-          boxWidthState *
-          (i - countSplitDisplay * Math.floor(i / countSplitDisplay)),
+        left: boxWidthState * (i - countSplitDisplay * Math.floor(i / countSplitDisplay)),
         width: boxWidthState,
         height: boxHeightState,
       }}

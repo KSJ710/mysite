@@ -60,12 +60,7 @@ export default function SignIn({ csrfToken }): JSX.Element {
 
   return (
     <form className={styles.base} onSubmit={handleSubmit(onSubmit)}>
-      <input
-        name="csrfToken"
-        type="hidden"
-        defaultValue={csrfToken}
-        {...register('csrfToken')}
-      />
+      <input name="csrfToken" type="hidden" defaultValue={csrfToken} {...register('csrfToken')} />
       <label>
         <span>メールアドレス</span>
         <input
@@ -75,12 +70,8 @@ export default function SignIn({ csrfToken }): JSX.Element {
           onChange={(e) => setForm({ ...form, email: e.currentTarget.value })}
           {...register('emailRequired', { required: true })}
         />
-        {errors.emailRequired?.type === 'required' && (
-          <FlashInputInvalid text="必須項目です" />
-        )}
-        {errors.emailRequired?.type === 'pattern' && (
-          <FlashInputInvalid text="メールアドレスに誤りがあります" />
-        )}
+        {errors.emailRequired?.type === 'required' && <FlashInputInvalid text="必須項目です" />}
+        {errors.emailRequired?.type === 'pattern' && <FlashInputInvalid text="メールアドレスに誤りがあります" />}
       </label>
       <label>
         <span>パスワード</span>
@@ -89,21 +80,14 @@ export default function SignIn({ csrfToken }): JSX.Element {
           type="password"
           defaultValue={form.password}
           autoComplete="current-password"
-          onChange={(e) =>
-            setForm({ ...form, password: e.currentTarget.value })
-          }
+          onChange={(e) => setForm({ ...form, password: e.currentTarget.value })}
           {...register('passwordRequired', { required: true })}
         />
-        {errors.passwordRequired?.type === 'required' && (
-          <FlashInputInvalid text="必須項目です" />
-        )}
+        {errors.passwordRequired?.type === 'required' && <FlashInputInvalid text="必須項目です" />}
       </label>
       <input type="submit" value="ログイン" />
       {error && (
-        <FlashLoginError
-          backgroundColor={failureColor}
-          text={'メールアドレス又はパスワードが間違っています。'}
-        />
+        <FlashLoginError backgroundColor={failureColor} text={'メールアドレス又はパスワードが間違っています。'} />
       )}
     </form>
   );

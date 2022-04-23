@@ -14,10 +14,7 @@ import { useRouter } from 'next/router';
 // https://fontawesome.com/v5.15/how-to-use/on-the-web/using-with/react
 library.add(fab, fas);
 
-export default function MyApp({
-  Component,
-  pageProps: { session, ...pageProps },
-}: AppProps): JSX.Element {
+export default function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps): JSX.Element {
   const router = useRouter();
   const [loadState, setLoadState] = useState(false);
   useLoadEvent(router, setLoadState);

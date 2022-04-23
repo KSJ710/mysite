@@ -17,9 +17,7 @@ export default function Home(): JSX.Element {
         <h2>ご案内</h2>
         <p>アカウントを作成するとアプリの詳細を確認することができます。</p>
         <button className=" mb-[30px]">アカウント作成</button>
-        <p>
-          アカウント登録しなくても既存アカウントで ログインする事が可能です。
-        </p>
+        <p>アカウント登録しなくても既存アカウントで ログインする事が可能です。</p>
         <button>ログイン</button>
       </section>
 
@@ -41,12 +39,7 @@ function useSampleListElement() {
       <Link href={`sample-list/${sample.id}`}>
         <a>
           <div>{sample.title}</div>
-          <Image
-            src={`/images/home/sample_list/${sample.image_path}`}
-            alt="サムネイル"
-            width={100}
-            height={100}
-          />
+          <Image src={`/images/home/sample_list/${sample.image_path}`} alt="サムネイル" width={100} height={100} />
         </a>
       </Link>
     </li>

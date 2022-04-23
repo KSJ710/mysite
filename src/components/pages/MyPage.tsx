@@ -5,10 +5,7 @@ import axios from 'axios';
 
 export default function MyPage(): JSX.Element {
   const { data: session } = useSession({ required: true });
-  const { data: member, error } = useSWR(
-    `/api/member/show?email=${session.user.email}`,
-    fetcher
-  );
+  const { data: member, error } = useSWR(`/api/member/show?email=${session.user.email}`, fetcher);
 
   if (!member) return <Load />;
 

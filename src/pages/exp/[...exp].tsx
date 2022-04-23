@@ -9,10 +9,7 @@ import { fetcher } from 'src/helper/common';
 
 const Exp = (): JSX.Element => {
   const Address = () => {
-    const { data, error } = useSWR(
-      'https://geolonia.github.io/japanese-addresses/api/ja.json',
-      fetcher
-    );
+    const { data, error } = useSWR('https://geolonia.github.io/japanese-addresses/api/ja.json', fetcher);
     if (error) {
       return <div>loading</div>;
     }

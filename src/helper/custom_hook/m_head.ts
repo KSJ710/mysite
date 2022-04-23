@@ -1,11 +1,11 @@
 import useSWR from 'swr';
 import { fetcher } from 'src/helper/common';
 
-export function useSampleList() {
-  const { data, error } = useSWR(`/api/sample_list/index`, fetcher);
+export function useHead() {
+  const { data, error } = useSWR('/api/templates/head_part', fetcher);
 
   return {
-    sampleList: data,
+    heads: data,
     isLoading: !error && !data,
     isError: error,
   };

@@ -1,53 +1,28 @@
 import React from 'react';
-import { useSetRecoilState } from 'recoil';
-// atom
-import {
-  currentLayoutPart,
-  currentTargetState,
-  editToolsDisplayState,
-} from 'src/atoms/tamplate_atoms';
-import Base from 'src/components/templates/layout/Base';
-import EditTools from 'src/components/templates/edit_tools/EditTools';
+import { useTemplate } from 'src/helper/custom_hook/template';
+import Link from 'next/link';
+import Image from 'next/image';
+import styles from './Index.module.scss';
 
-const Index = (): JSX.Element => {
-  const setCurrentTarget = useSetRecoilState(currentTargetState);
-  const setCurtLayPart = useSetRecoilState(currentLayoutPart);
-  const setEditToolsDisplay = useSetRecoilState(editToolsDisplayState);
+export default function Index(): JSX.Element {
+  const list = useTemplateElement();
 
-  const toggleEditTools = (e) => {
-    e.stopPropagation();
-    // 編集するelementを設定する
-    setCurrentTarget(e.currentTarget);
+  return <div className={styles.base}>{list}</div>;
+}
 
-    const className: string = e.currentTarget.className;
+function useTemplateElement() {
+  const { sampleList, isLoading, isError } = useTemplate();
+  if (isError) return <div>読み込み出来ません</div>;
+  if (isLoading) return <div>読込中...</div>;
 
-    // レイアウトパーツの種類を配列化
-    const layPartNames: string[] = ['Head', 'Foot'];
-    // レイアウトパーツを断定するクラス名を検索
-    const targetPartName: string = className.match(/_track_lay_part_.*/)[0];
-    let resultPartName: string = 'resultPartName';
-    for (let layPartName of layPartNames) {
-      // 対象要素がどのパーツか確認、マッチしないなら-1でそれをビット反転し0にし、falseとする
-      if (~targetPartName.indexOf(layPartName)) {
-        resultPartName = layPartName;
-        break;
-      }
-    }
-    setCurtLayPart(resultPartName);
-
-    //editToolの表示する
-    setEditToolsDisplay('flex');
-  };
-
-  return (
-    <ToggleEditTools.Provider value={toggleEditTools}>
-      <Base />
-      <EditTools />
-    </ToggleEditTools.Provider>
-  );
-};
-
-export const ToggleEditTools = React.createContext(
-  {} as (event: React.MouseEvent<HTMLElement>) => void
-);
-export default Index;
+  return sampleList.map((sample) => (
+    <li key={sample.id}>
+      <Link href={`sample-list/${sample.id}`}>
+        <a>
+          <div>{sample.title}</div>
+          <Image src={`/images/home/sample_list/${sample.image_path}`} alt="サムネイル" width={100} height={100} />
+        </a>
+      </Link>
+    </li>
+  ));
+}
