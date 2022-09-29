@@ -54,7 +54,7 @@ const EditToolBox = (): JSX.Element => {
     <>
       <div style={{ display: editToolDisplay }} className={styles.base} onClick={hiddenEditTools}>
         <div>
-          <p>変更したい項目を選んで下さい</p>
+          <p>変更する項目を選択</p>
           <ul>
             <li onClick={showBgColor}>背景カラー</li>
             <li onClick={showFontFamily}>フォント</li>
