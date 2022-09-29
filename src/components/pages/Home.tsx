@@ -5,15 +5,10 @@ export default function Home(): JSX.Element {
   return (
     <div className={styles.base}>
       <section className={`${styles.guidAccount} mb-[40px]`}>
-        <h2 className="mb-[40px]">見出し</h2>
-        <Link href="/templates">
-          <a>開始</a>
+        <h2 className="mb-[20px]">タイトル</h2>
+        <Link href="/templates/template">
+          <a className="inline-block py-2 px-4 bg-black rounded-full">テンプレート</a>
         </Link>
-      </section>
-
-      <section className={styles.sampleList}>
-        <h2 className="mb-[30px]">使い方</h2>
-        <div>aaa</div>
       </section>
     </div>
   );
