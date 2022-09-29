@@ -1,10 +1,7 @@
-/* eslint-disable tailwindcss/no-custom-classname */
 import { useSetRecoilState } from 'recoil';
-import useSWR from 'swr';
+import { useFoot } from 'src/helper/custom_hook/m_foot';
 // atom
 import { tplFootNumberState } from 'src/atoms/tamplate_atoms';
-// helper
-import { fetcher } from 'src/helper/common';
 // css
 import styles from './ChangeFootPart.module.scss';
 
@@ -13,40 +10,38 @@ type Props = {
   setDisplay: React.Dispatch<React.SetStateAction<classDisplay>>;
 };
 
-const ChangefootPart = (props: Props): JSX.Element => {
-  const setFootNum = useSetRecoilState(tplFootNumberState);
+export default function ChangefootPart(props: Props): JSX.Element {
+  //背景カラーエディタを非表示にする
+  const hiddenfootPart = () => {
+    props.setDisplay('none');
+  };
 
+  return (
+    <div style={{ display: props.display }} className={styles.base} onClick={hiddenfootPart}>
+      <ul className={styles.tool_bg}>
+        <FetchFoot {...props} />
+      </ul>
+    </div>
+  );
+}
+
+function FetchFoot(props) {
+  const setFootNum = useSetRecoilState(tplFootNumberState);
   //Head部分のパーツを切り替える
   const changeFootPart = (e) => {
     e.stopPropagation();
     setFootNum(e.target.value);
   };
 
-  //背景カラーエディタを非表示にする
-  const hiddenfootPart = () => {
-    props.setDisplay('none');
-  };
+  const { foots, isLoading, isError } = useFoot();
+  if (isError) return <div style={{ display: props.display }}>error</div>;
+  if (isLoading) return <div style={{ display: props.display }}>loading...</div>;
 
-  const { data, error } = useSWR('/api/templates/foot_part', fetcher);
-  if (error) {
-    return <div>error</div>;
-  }
-  if (!data) {
-    return <div>loading...</div>;
-  } else {
-    const footPartList = data.map((footPart: LayoutParts) => (
-      <li key={footPart.id} className={styles.tool_list}>
-        <button value={footPart.id} onClick={changeFootPart}></button>
-        <div className={styles.label}>{footPart.id}</div>
-        {footPart.name}
-      </li>
-    ));
-    return (
-      <div style={{ display: props.display }} className={styles.base} onClick={hiddenfootPart}>
-        <ul className={styles.tool_bg}>{footPartList}</ul>
-      </div>
-    );
-  }
-};
-
-export default ChangefootPart;
+  return foots.map((footPart: LayoutParts) => (
+    <li key={footPart.id} className={styles.tool_list}>
+      <button value={footPart.id} onClick={changeFootPart}></button>
+      <div className={styles.label}>{footPart.id}</div>
+      {footPart.name}
+    </li>
+  ));
+}

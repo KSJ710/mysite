@@ -1,11 +1,7 @@
 import React from 'react';
 import { useSetRecoilState } from 'recoil';
 // atom
-import {
-  currentLayoutPart,
-  currentTargetState,
-  editToolsDisplayState,
-} from 'src/atoms/tamplate_atoms';
+import { currentLayoutPart, currentTargetState, editToolsDisplayState } from 'src/atoms/tamplate_atoms';
 import Base from 'src/components/templates/layout/Base';
 import EditTools from 'src/components/templates/edit_tools/EditTools';
 
@@ -47,7 +43,5 @@ const Index = (): JSX.Element => {
   );
 };
 
-export const ToggleEditTools = React.createContext(
-  {} as (event: React.MouseEvent<HTMLElement>) => void
-);
+export const ToggleEditTools = React.createContext({} as (event: React.MouseEvent<HTMLElement>) => void);
 export default Index;

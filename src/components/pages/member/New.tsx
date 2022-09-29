@@ -50,12 +50,7 @@ export default function New(): JSX.Element {
 
   return (
     <div className={styles.base}>
-      {flashSendEmail && (
-        <FlashCreateMember
-          text={'メールが送られました'}
-          backgroundColor={successColor}
-        />
-      )}
+      {flashSendEmail && <FlashCreateMember text={'メールが送られました'} backgroundColor={successColor} />}
 
       <h1>アカウント作成</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -67,9 +62,7 @@ export default function New(): JSX.Element {
             onInput={(e) => setForm({ ...form, name: e.currentTarget.value })}
             {...register('nameRequired', { required: true })}
           />
-          {errors.nameRequired?.type === 'required' && (
-            <FlashInputInvalid text="必須項目です" />
-          )}
+          {errors.nameRequired?.type === 'required' && <FlashInputInvalid text="必須項目です" />}
         </label>
 
         <label htmlFor="email">
@@ -81,16 +74,11 @@ export default function New(): JSX.Element {
             onInput={(e) => setForm({ ...form, email: e.currentTarget.value })}
             {...register('emailRequired', {
               required: true,
-              pattern:
-                /^^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{1,}$/i,
+              pattern: /^^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{1,}$/i,
             })}
           />
-          {errors.emailRequired?.type === 'required' && (
-            <FlashInputInvalid text="必須項目です" />
-          )}
-          {errors.emailRequired?.type === 'pattern' && (
-            <FlashInputInvalid text="メールアドレスに誤りがあります" />
-          )}
+          {errors.emailRequired?.type === 'required' && <FlashInputInvalid text="必須項目です" />}
+          {errors.emailRequired?.type === 'pattern' && <FlashInputInvalid text="メールアドレスに誤りがあります" />}
         </label>
 
         <label htmlFor="password">
@@ -100,17 +88,13 @@ export default function New(): JSX.Element {
             type="password"
             autoComplete="new-password"
             defaultValue={form.password}
-            onInput={(e) =>
-              setForm({ ...form, password: e.currentTarget.value })
-            }
+            onInput={(e) => setForm({ ...form, password: e.currentTarget.value })}
             {...register('passwordRequired', {
               required: true,
               pattern: /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,24}$/,
             })}
           />
-          {errors.passwordRequired?.type === 'required' && (
-            <FlashInputInvalid text="必須項目です" />
-          )}
+          {errors.passwordRequired?.type === 'required' && <FlashInputInvalid text="必須項目です" />}
           {errors.passwordRequired?.type === 'pattern' && (
             <FlashInputInvalid text="半角英小文字,大文字,数字を1種類以上を含み8文字以上24文字以下にして下さい" />
           )}
@@ -123,18 +107,15 @@ export default function New(): JSX.Element {
             type="password"
             autoComplete="new-password"
             defaultValue={form.confirmPassword}
-            onInput={(e) =>
-              setForm({ ...form, confirmPassword: e.currentTarget.value })
-            }
+            onInput={(e) => setForm({ ...form, confirmPassword: e.currentTarget.value })}
             {...register('confirmPasswordRequired', {
               required: true,
               pattern: /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,24}$/,
             })}
           />
-          {errors.confirmPasswordRequired?.type === 'required' &&
-            form.password !== '' && (
-              <FlashInputInvalid text="パスワードを再度入力して下さい" />
-            )}
+          {errors.confirmPasswordRequired?.type === 'required' && form.password !== '' && (
+            <FlashInputInvalid text="パスワードを再度入力して下さい" />
+          )}
         </label>
 
         <label htmlFor="prefecture">
@@ -155,11 +136,7 @@ export default function New(): JSX.Element {
           </select>
         </label>
 
-        <input
-          type="submit"
-          value="メールアドレス確認"
-          className="rounded-full"
-        />
+        <input type="submit" value="メールアドレス確認" className="rounded-full" />
       </form>
     </div>
   );

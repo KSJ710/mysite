@@ -1,0 +1,8 @@
+.base {
+  display: flex;
+  overflow: hidden;
+  .slider {
+    display: flex;
+    flex-shrink: 0;
+  }
+}

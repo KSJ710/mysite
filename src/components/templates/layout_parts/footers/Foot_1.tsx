@@ -1,7 +1,7 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 import React, { useContext } from 'react';
 // コンテクスト
-import { ToggleEditTools } from 'src/pages/templates/index';
+import { ToggleEditTools } from 'src/pages/templates/template';
 // イメージ
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './Foot_1.module.scss';

@@ -1,7 +1,7 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 import React, { useContext } from 'react';
 // context
-import { ToggleEditTools } from 'src/pages/templates/index';
+import { ToggleEditTools } from 'src/pages/templates/template';
 // image
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Logo from '../svg/Logo_1';
